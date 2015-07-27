@@ -1,0 +1,12 @@
+body{
+  font-size: 12px;
+  font-family: verdana;
+}
+
+#main{
+  height: auto;
+  width:800px;
+  margin:auto;
+  font-weight: bold;
+  font-size: 20px;
+}

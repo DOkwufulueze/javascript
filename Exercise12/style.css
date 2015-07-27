@@ -1,0 +1,59 @@
+body{
+  font-size: 12px;
+  font-family: verdana;
+}
+
+label{
+  display: inline-block;
+}
+
+input[type="text"]{
+  display: inline-block;
+}
+
+#main{
+  height: auto;
+  width:400px;
+  margin:auto;
+  background-color: #ddeecc;
+}
+
+.header{
+  width: 100%;
+  background-color: #77ba55;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  float: left;
+  padding: 3px 0px 3px 0px;
+}
+
+.content{
+  width: 100%;
+  padding: 10px;
+  background-color: inherit;
+  color: black;
+  box-sizing: border-box;
+  float: left;
+  padding-top: 20px;
+}
+
+.dataHolder{
+  margin-bottom: 10px;
+  float: left;
+  width: 100%;
+}
+
+.var{
+  font-weight: bold;
+  width: 110px;
+  margin-right: 10px;
+  font-size: inherit;
+  float: left;
+}
+
+.val{
+  width: 150px;
+  float: left;
+}

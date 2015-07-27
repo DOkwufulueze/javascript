@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Javascript Track</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+
+    <script src='../traceurCompiler/bin/traceur.js'></script>
+    <script src='../traceurCompiler/src/bootstrap.js'></script>
+    <script>
+      traceur.options.experimental = true;
+    </script>
+    
+  </head>
+  <body>
+    <form style="width:400px;margin:auto;">
+      <label for="red">red</label>
+      <input type="checkbox" value="red" id="red" />
+      <br /><br />
+
+      <label for="green">green</label>
+      <input type="checkbox" value="green" id="green" />
+      <br /><br />
+
+      <label for="yellow">yellow</label>
+      <input type="checkbox" value="yellow" id="yellow" />
+      <br /><br />
+
+      <label for="white">white</label>
+      <input type="checkbox" value="white" id="white" />
+      <br /><br />
+
+      <label for="black">black</label>
+      <input type="checkbox" value="black" id="black" />
+      <br /><br />
+
+      <a id="all">Check All</a>&nbsp;&nbsp;
+      <a id="none">Check None</a>
+    </form>
+    <script type="module" src="Check.js"></script>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+body{
+  font-size: 12px;
+  font-family: verdana;
+}
+
+#main{
+  height: auto;
+  width:800px;
+  margin:auto;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.countries{
+  display: inline-block;
+  height: 100px;
+  width: 150px;
+}
+
+.btn{
+  display: inline-block;
+  vertical-align: middle;
+  height: 100px;
+}

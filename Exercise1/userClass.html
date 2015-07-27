@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <title>Javascript Track</title>
+    <script src='../traceurCompiler/bin/traceur.js'></script>
+    <script src='../traceurCompiler/src/bootstrap.js'></script>
+    <script>
+      traceur.options.experimental = true;
+    </script>
+  </head>
+  <body>
+    <form style='width:700px;margin:auto;'>
+      <label for='name1'>User1</label>
+      <input type='text' placeholder='User1's Name' id='name1' />&nbsp;&nbsp;
+      <input type='text' placeholder='User1's Age' id='age1' />
+      <br /><br />
+
+      <label for='name2'>User2</label>
+      <input type='text' placeholder='User2's Name' id='name2' />&nbsp;&nbsp;
+      <input type='text' placeholder='User2's Age' id='age2' />
+      <br /><br />
+      
+      <input type='button' value='Compare' id='sbm' />
+    </form>
+    <script type='module' src='User.js'></script>
+  </body>
+</html>

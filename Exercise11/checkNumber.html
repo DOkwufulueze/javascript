@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <title>Javascript Track</title>
+    <link rel='stylesheet' type='text/css' href='style.css' />
+    <script src='../traceurCompiler/bin/traceur.js'></script>
+    <script src='../traceurCompiler/src/bootstrap.js'></script>
+    <script>
+      traceur.options.experimental = true;
+    </script>
+  </head>
+  <body>
+    <form method='post' action='checkNumber.html' id='frm' name='frm'>
+      <div id='main'>
+        <div class='header'>
+          Number Checker
+        </div>
+
+        <div class='content'>
+          <div class='dataHolder'>
+            <label class='var' for='id'>Number</label>
+            <input type='text' name='num' id='num' class='val sm' title=':::Enter ONLY Numbers' />
+          </div>
+
+          <div class='dataHolder'>
+            <label class='var' for='email'>Result</label>
+            <input type='text' name='result' id='result' class='val sm' disabled />
+          </div>
+
+          <div class='dataHolder'>
+            <input type='button' value='Submit' id='sbm'>
+          </div>
+        </div>
+      </div>
+    </form>
+    <script type='module' src='NumberChecker.js'></script>
+  </body>
+</html>

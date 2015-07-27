@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <title>Javascript Track</title>
+    <link rel='stylesheet' type='text/css' href='style.css' />
+
+    <script src='../traceurCompiler/bin/traceur.js'></script>
+    <script src='../traceurCompiler/src/bootstrap.js'></script>
+    <script>
+      traceur.options.experimental = true;
+    </script>
+    
+  </head>
+  <body>
+    <form method='post' action='checkNumber.html' id='frm' name='frm'>
+      <div id='main'>
+        <div class='header'>
+          Domain Checker
+        </div>
+
+        <div class='content'>
+          <div class='dataHolder'>
+            <label class='var' for='url'>Number</label>
+            <input type='text' name='url' id='url' class='val sm' title=':::Enter Domain' />
+          </div>
+
+          <div class='dataHolder'>
+            <input type='button' value='Submit' id='sbm'>
+          </div>
+        </div>
+      </div>
+    </form>
+    <script type='module' src='DomainShower.js'></script>
+  </body>
+</html>
