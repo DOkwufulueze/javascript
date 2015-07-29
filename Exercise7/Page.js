@@ -72,3 +72,4 @@ const page = new Page();
 const grt = page.greet();
 alert(grt);
 elm.innerHTML = grt;
+

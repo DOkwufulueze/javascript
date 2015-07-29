@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <title>Javascript Track</title>
+    <link rel='stylesheet' type='text/css' href='style.css' />
+
+    <script src='../traceurCompiler/bin/traceur.js'></script>
+    <script src='../traceurCompiler/src/bootstrap.js'></script>
+    <script>
+      traceur.options.experimental = true;
+    </script>
+    
+  </head>
+  <body>
+    <div class='main'>
+      <div style='margin-bottom:60px;'>
+        <span class='sub'>
+          <label for='colorBox' class='title'>color</label>
+          <input type='checkbox' value='color' id='colorBox' />
+        </span>
+        <span class='sub'>
+          <label for='drinksBox' class='title'>drinks</label>
+          <input type='checkbox' value='drinks' id='drinksBox' />
+        </span>
+        <span class='sub'>
+          <label for='moviesBox' class='title'>movies</label>
+          <input type='checkbox' value='movies' id='moviesBox' />
+        </span>
+        <span class='sub'>
+          <label for='bikesBox' class='title'>bikes</label>
+          <input type='checkbox' value='bikes' id='bikesBox' />
+        </span>
+      </div>
+
+      <div>
+        <span class='sub' id='color'>
+          <label for='red'>red</label>
+          <input type='checkbox' value='red' id='red' />
+          <br />
+          <label for='yellow'>yellow</label>
+          <input type='checkbox' value='yellow' id='yellow' />
+          <br />
+          <label for='green'>green</label>
+          <input type='checkbox' value='green' id='green' />
+          <br />
+          <label for='blue'>blue</label>
+          <input type='checkbox' value='blue' id='blue' />
+        </span>
+
+        <span class='sub' id='drinks'>
+          <label for='coke'>coke</label>
+          <input type='checkbox' value='coke' id='coke' />
+          <br />
+          <label for='pepsi'>pepsi</label>
+          <input type='checkbox' value='pepsi' id='pepsi' />
+          <br />
+          <label for='dew'>dew</label>
+          <input type='checkbox' value='dew' id='dew' />
+        </span>
+
+        <span class='sub' id='movies'>
+          <label for='Dar'>Dar</label>
+          <input type='checkbox' value='Dar' id='Dar' />
+          <br />
+          <label for='Sir'>Sir</label>
+          <input type='checkbox' value='Sir' id='Sir' />
+        </span>
+
+        <span class='sub' id='bikes'>
+          <label for='V-rod'>V-rod</label>
+          <input type='checkbox' value='V-rod' id='V-rod' />
+          <br />
+          <label for='pulsar'>pulsar</label>
+          <input type='checkbox' value='pulsar' id='pulsar' />
+          <br />
+          <label for='cbz'>cbz</label>
+          <input type='checkbox' value='cbz' id='cbz' />
+        </span>
+        
+      </div>
+
+    </div>
+    <script type='module' src='ChildList.js'></script>
+  </body>
+</html>

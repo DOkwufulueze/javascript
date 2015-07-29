@@ -1,0 +1,52 @@
+body{
+  font-size: 14px;
+}
+
+label{
+  width:50px;
+  display: inline-block;
+}
+
+.main{
+  height: 100px;
+  overflow: auto;
+  width:850px;
+  margin:auto;
+  position: relative;
+}
+
+.sub{
+  display: inline-block;
+  width: 200px;
+  margin-right: 5px;
+  float: left;
+}
+
+.title{
+  font-size:15px;
+  font-weight: bold;
+}
+
+#color{
+  position: absolute;
+  left: 0px;
+  display: none;
+}
+
+#drinks{
+  position: absolute;
+  left: 205px;
+  display: none;
+}
+
+#movies{
+  position: absolute;
+  left: 410px;
+  display: none;
+}
+
+#bikes{
+  position: absolute;
+  left: 615px;
+  display: none;
+}

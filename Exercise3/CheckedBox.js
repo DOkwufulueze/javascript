@@ -78,3 +78,4 @@ function addCheckedButton(str) {
   }
 
 }
+

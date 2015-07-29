@@ -19,7 +19,7 @@ class URLOpener {
 
   //Validate user's url
   _isInputCorrect(str) {
-    return /^(((ht|f)tp(s)?:\/\/)|(file:\/\/\/))?([\w-]{2,66}(\.)?)+(\.[a-z]{2,4})?\/?([\w]+([-_]*[\w\.]+)*\/?)*$/gi.test(str);
+    return /^((((ht|f)tp(s)?:\/\/)?([\w-]{2,66}(\.)?)+\.[a-z]{2,4}\/?)|(file:\/\/\/([\w-]{2,66}(\.)?)+\/?))([\w]+([-_]*[\w\.]+)*\/?)*$/gi.test(str);
   }
 
   //Receive URL and Open it
@@ -72,3 +72,4 @@ class URLOpener {
 //Instantiating URLOpener Object
 const ur = new URLOpener(400, 450);
 ur.openURL();
+

@@ -210,3 +210,4 @@ document.getElementById('add').onclick = () => {
   //invoking Row's createRow Method
   instant.createRow();
 };
+

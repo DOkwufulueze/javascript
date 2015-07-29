@@ -49,3 +49,4 @@ const elments = document.getElementsByTagName('INPUT');
 document.getElementById('all').onclick = () => { new Check(elments,'All'); };
 
 document.getElementById('none').onclick = () => { new Check(elments,'None'); };
+

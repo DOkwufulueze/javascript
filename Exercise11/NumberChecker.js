@@ -44,3 +44,4 @@ document.getElementById('sbm').onclick = () => {
 
   new NumberChecker(inps);
 };
+

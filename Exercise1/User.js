@@ -65,3 +65,4 @@ document.getElementById('sbm').onclick = () => {
   const user2 = new User(document.getElementById('name2').value,document.getElementById('age2').value);
   alert(user1.compare(user2));
 };
+

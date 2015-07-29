@@ -28,7 +28,7 @@ class Validator {
       id : /^[a-zA-Z0-9]+$/,
       email : /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
       name : /^[a-zA-Z\s]+((['-])*[a-zA-Z\s]+)*$/,
-      home : /^(((ht|f)tp(s)?:\/\/)|(file:\/\/\/))?([\w-]{2,66}(\.)?)+(\.[a-z]{2,4})?\/?([\w]+([-_]*[\w\.]+)*\/?)*$/gi,
+      home : /^((((ht|f)tp(s)?:\/\/)?([\w-]{2,66}(\.)?)+\.[a-z]{2,4}\/?)|(file:\/\/\/([\w-]{2,66}(\.)?)+\/?))([\w]+([-_]*[\w\.]+)*\/?)*$/gi,
       about : /^.{50,}$/,
     };
 
@@ -88,3 +88,4 @@ document.getElementById('sbm').onclick = () => {
   const inps = document.getElementsByClassName('sm');
   const validate = new Validator(inps);
 };
+

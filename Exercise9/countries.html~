@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <title>Javascript Track</title>
+    <link rel='stylesheet' type='text/css' href='style.css' />
+    <script src='../traceurCompiler/bin/traceur.js'></script>
+    <script src='../traceurCompiler/src/bootstrap.js'></script>
+    <script>
+      traceur.options.experimental = true;
+    </script>
+  </head>
+  <body>
+    <div id='main'>
+      <select id='countriesBox1' multiple class='countries'>
+        <option value='Algeria'>Algeria</option>
+        <option value='Cameroon'>Cameroon</option>
+        <option value='Egypt'>Egypt</option>
+        <option value='Ghana'>Ghana</option>
+        <option value='Liberia'>Liberia</option>
+        <option value='Nigeria'>Nigeria</option>
+        <option value='South Africa'>South Africa</option>
+        <option value='Uganda'>Uganda</option>
+        <option value='Zambia'>Zambia</option>
+        <option value='Zimbabwe'>Zimbabwe</option>
+      </select>
+
+      <span class='btn'>
+        <button id='add' class='actionBtn'>Add >></button>
+        <button id='remove' class='actionBtn'><< Remove </button>
+      </span>
+
+      <select id='countriesBox2' multiple class='countries'>
+        
+      </select>
+
+    </div>
+    <script type='module' src='CountryMover.js'></script>
+  </body>
+</html>
