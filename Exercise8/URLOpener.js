@@ -19,7 +19,7 @@ class URLOpener {
 
   //Validate user's url
   _isInputCorrect(str) {
-    return /^((ht|f)tp(s)?:\/\/)?([a-z0-9-]{2,66}(\.)?)+\.[a-z]{2,4}\/?([a-zA-Z]+([-_]*[a-zA-Z]+)*\/?)*$/.test(str);
+    return /^(((ht|f)tp(s)?:\/\/)|(file:\/\/\/))?([\w-]{2,66}(\.)?)+(\.[a-z]{2,4})?\/?([\w]+([-_]*[\w\.]+)*\/?)*$/gi.test(str);
   }
 
   //Receive URL and Open it
@@ -56,7 +56,7 @@ class URLOpener {
       url = url.trim();
 
       //url does not contain http, https, ftp and ftps://
-      if (url.search('http://') < 0 && url.search('https://') < 0 && url.search('ftp://') < 0 && url.search('ftps://') < 0) {
+      if (url.search('http://') < 0 && url.search('https://') < 0 && url.search('ftp://') < 0 && url.search('ftps://') < 0 && url.search('file:///') < 0) {
         url = `http://${url}`;
       }
 

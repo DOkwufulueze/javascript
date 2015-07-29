@@ -8,7 +8,7 @@ class DomainShower {
     this._url = elm;
     this._emptyMsg = ':::Enter a URL';
     this._errorMsg = ':::No proper URL match found. Please enter a valid URL.';
-    this._pattern = /^((ht|f)tp(s)?:\/\/)?([a-z0-9-]{2,66}(\.)?)+\.[a-z]{2,4}\/?([a-zA-Z]+([-_]*[a-zA-Z]+)*\/?)*$/g;
+    this._pattern = /^(((ht|f)tp(s)?:\/\/)|(file:\/\/\/))?([\w-]{2,66}(\.)?)+(\.[a-z]{2,4})?\/?([\w]+([-_]*[\w\.]+)*\/?)*$/gi;
     this._showDomain();
   }
 
