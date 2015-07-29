@@ -1,1 +1,0 @@
-this.someResult = 42;

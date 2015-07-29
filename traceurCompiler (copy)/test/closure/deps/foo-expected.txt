@@ -1,4 +1,0 @@
-goog.module("test/closure/deps/foo.js");
-var Foo = 'Foo from foo.js';
-exports = {Foo: Foo};
-//# sourceURL=test/closure/deps/foo.js
