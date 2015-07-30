@@ -3,9 +3,10 @@
 class ChildListShower {
 
   //ChildListShower constructor
-  constructor(childList) {
+  constructor(mainParentForView, childList) {
     this._childList = childList;
     this._childListChildren = this._childList.children;
+    this._mainParentForView = mainParentForView;
   }
 
   //defining ChildListShower methods
@@ -17,7 +18,7 @@ class ChildListShower {
         children[child].checked = true;
       }
     });
-    this._childList.parentNode.parentNode.scrollTop = this._childList.parentNode.parentNode.scrollHeight;
+    this._mainParentForView.scrollTop = this._mainParentForView.scrollHeight;
   }
 
   hideChildList() {
@@ -40,11 +41,12 @@ Object.keys(parents).forEach((parent) => {
     let theParent = parents[parent];
     theParent.addEventListener('click', () => {
 
-      //Getting the child list
+      //Getting the child list and parent view port id
       let childList = document.getElementById(theParent.value);
+      let mainParentForView = theParent.parentNode.parentNode.parentNode;
 
       //instantiating a ChildListShower object
-      const childListShower = new ChildListShower(childList);
+      const childListShower = new ChildListShower(mainParentForView, childList);
 
       //invoking ChildListShower's showChildList and hideChildList  Method
       if (theParent.checked) {
