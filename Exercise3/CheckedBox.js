@@ -52,7 +52,6 @@ const form = document.getElementById('form');
 form.addEventListener('click', (theEvent) => {
   const child = theEvent.target;
   if (child.id) {
-    const childId = child.id;
     if(child.checked){
       checkedBox.confirmMaximum(child);
     } else {
