@@ -1,64 +1,58 @@
 'use strict'
 
-//Collecting the checkboxes' id's and child id's and Listening to onclick event
-const callerBox = {
-  colorBox : 'color',
-  drinksBox : 'drinks',
-  moviesBox : 'movies',
-  bikesBox : 'bikes',
-};
+class ChildListShower {
 
-Object.keys(callerBox).forEach((itm) => {
-  document.getElementById(itm).onclick = () => { toggleChildList(document.getElementById(itm), callerBox[itm]); };
-});
- 
-class ChildList {
-
-  //ChildList constructor
+  //ChildListShower constructor
   constructor(childList) {
-    this._itself = document.getElementById(childList);
-    this._childre = this._itself.children;
+    this._childList = childList;
+    this._childListChildren = this._childList.children;
   }
 
-  //defining ChildList methods in the prototype
-  showSelf() {
-    this._itself.style.display = 'block';
-    const chd = this._childre;
-    Object.keys(chd).forEach((i) => {
-      if (chd[i].tagName == 'INPUT') {
-        chd[i].checked = true;
+  //defining ChildListShower methods
+  showChildList() {
+    this._childList.style.display = 'block';
+    const children = this._childListChildren;
+    Object.keys(children).forEach((child) => {
+      if (children[child].tagName == 'INPUT') {
+        children[child].checked = true;
       }
-
     });
-    
-    this._itself.parentNode.parentNode.scrollTop = this._itself.parentNode.parentNode.scrollHeight;
+    this._childList.parentNode.parentNode.scrollTop = this._childList.parentNode.parentNode.scrollHeight;
   }
 
-  hideSelf() {
-    const chd = this._childre;
-    Object.keys(chd).forEach((i) => {
-      if (chd[i].tagName == 'INPUT') {
-        chd[i].checked = false;
+  hideChildList() {
+    const children = this._childListChildren;
+    Object.keys(children).forEach((child) => {
+      if (children[child].tagName == 'INPUT') {
+        children[child].checked = false;
       }
-
     });
-
-    this._itself.style.display = 'none';
+    this._childList.style.display = 'none';
   }
 
 }
 
-function toggleChildList(callerBox,str){
+//Collecting the parents' and Listening to onclick event
+const parents = document.getElementsByClassName('parent');
 
-  //instantiating a ChildList object
-  const cl = new ChildList(str);
+Object.keys(parents).forEach((parent) => {
+  if (!isNaN(parent)) {
+    let theParent = parents[parent];
+    theParent.addEventListener('click', () => {
 
-  //invoking ChildList's showSelf and hideSelf  Method
-  if (callerBox.checked) {
-    cl.showSelf();
-  } else {
-    cl.hideSelf();
+      //Getting the child list
+      let childList = document.getElementById(theParent.value);
+
+      //instantiating a ChildListShower object
+      const childListShower = new ChildListShower(childList);
+
+      //invoking ChildListShower's showChildList and hideChildList  Method
+      if (theParent.checked) {
+        childListShower.showChildList();
+      } else {
+        childListShower.hideChildList();
+      }
+    });
   }
-
-}
+});
 

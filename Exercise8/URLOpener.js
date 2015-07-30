@@ -12,44 +12,39 @@ class URLOpener {
   }
 
   //Prompt the user with messages
-  _promptMsg(msg) {
-    const ans = prompt(msg);
-    return ans;
+  _promptMessage(message) {
+    const answer = prompt(message);
+    return answer;
   }
 
   //Validate user's url
-  _isInputCorrect(str) {
-    return /^((((ht|f)tp(s)?:\/\/)?([\w-]{2,66}(\.)?)+\.[a-z]{2,4}\/?)|(file:\/\/\/([\w-]{2,66}(\.)?)+\/?))([\w]+([-_]*[\w\.]+)*\/?)*$/gi.test(str);
+  _isInputCorrect(data) {
+    return /^((((ht|f)tp(s)?:\/\/)?([\w-]{2,66}(\.)?)+\.[a-z]{2,4}\/?)|(file:\/\/\/([\w-]{2,66}(\.)?)+\/?))([\w]+([-_]*[\w\.]+)*\/?)*$/gi.test(data);
   }
 
   //Receive URL and Open it
   openURL() {
     if (url.trim() === '') {
-      url = this._promptMsg(':::Please enter URL.');
+      url = this._promptMessage(':::Please enter URL.');
       if (url === null) {
         flag = 1;
       } else {
         while (!this._isInputCorrect(url)) {
-          url = this._promptMsg(':::Please enter a valid URL.');
+          url = this._promptMessage(':::Please enter a valid URL.');
           if (url === null) {
             flag = 1;
             break;
           }
-
         }
-
       }
-
     } else {
       while (!this._isInputCorrect(url)) {
-        url = this._promptMsg(':::Please enter a valid URL.');
+        url = this._promptMessage(':::Please enter a valid URL.');
         if (url === null) {
           flag = 1;
           break;
         }
-
       }
-
     }
 
     if (flag === 0) {
@@ -64,12 +59,10 @@ class URLOpener {
     } else {
      alert('You Cancelled. Thanks for Coming.');
     }
-
   }
-
 }
 
 //Instantiating URLOpener Object
-const ur = new URLOpener(400, 450);
-ur.openURL();
+const urlOpener = new URLOpener(400, 450);
+urlOpener.openURL();
 

@@ -4,9 +4,11 @@
 class Validator {
 
   //Validator constructor
-  constructor(elms) {
-    this._elments = elms;
-    this._emptyMsg = {
+  constructor(elements, form) {
+    this._elements = elements;
+    this._form = document.getElementById(form);
+    this._note = document.getElementById('note');
+    this._emptyMessage = {
       id : ':::Login Id cannot be empty',
       email : ':::Please enter your email',
       name : ':::Please enter your name',
@@ -16,7 +18,7 @@ class Validator {
       note : ':::You really do not want to receive notifications?',
     };
 
-    this._errorMsg = {
+    this._errorMessage = {
       id : ':::Fill in a proper Id',
       email : ':::Please enter a valid email',
       name : ':::Please enter a valid name',
@@ -24,7 +26,7 @@ class Validator {
       about : ':::Your detail must be more than 50 characters long',
     };
 
-    this._patern = {
+    this._pattern = {
       id : /^[a-zA-Z0-9]+$/,
       email : /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
       name : /^[a-zA-Z\s]+((['-])*[a-zA-Z\s]+)*$/,
@@ -37,26 +39,27 @@ class Validator {
 
   //defining Validator method _validate()
   _validate() {
-    const elms = this._elments;
-    const emptyMsgs = this._emptyMsg;
-    const errorMsgs = this._errorMsg;
-    const ptn = this._patern;
+    const elements = this._elements;
+    const emptyMessage = this._emptyMessage;
+    const errorMessage = this._errorMessage;
+    const pattern = this._pattern;
     let id;
     let flag = 0;
-    Object.keys(elms).some((i) => {
-      if (!isNaN(i)) {
-        id = elms[i].id; 
-        if (elms[i].value.trim() == '') {
-          document.getElementById(id).focus();
-          alert(emptyMsgs[id]);
+    Object.keys(elements).some((element) => {
+      if (!isNaN(element)) {
+        let id = elements[element].id;
+        let value = elements[element].value.trim();
+        if (value === '') {
+          elements[element].focus();
+          alert(emptyMessage[id]);
           flag = 1;
           return true;
         } else {
-          if (ptn[id]) {
-            if (!ptn[id].test(elms[i].value.trim())) {
-              document.getElementById(id).focus();
-              if (errorMsgs[id]) {
-                alert(errorMsgs[id]);
+          if (pattern[id]) {
+            if (!pattern[id].test(value)) {
+              elements[element].focus();
+              if (errorMessage[id]) {
+                alert(errorMessage[id]);
                 flag = 1;
                 return true;
               }
@@ -67,25 +70,23 @@ class Validator {
     });
 
     if (flag === 0) {
-      if (document.getElementById('note').checked) {
+      if (this._note.checked) {
         if (confirm(':::Are you sure you want to receive notifications?')) {
-          document.getElementById('frm').submit();
+          this._form.submit();
         }
       } else {
         if (confirm(':::Are you sure you DO NOT want to receive notifications?')) {
-          document.getElementById('frm').submit();
+          this._form.submit();
         }
       }
     } else {
       return false;
     }
-
   }
-
 }
 
-document.getElementById('sbm').onclick = () => {
-  const inps = document.getElementsByClassName('sm');
-  const validate = new Validator(inps);
-};
+document.getElementById('submitButton').addEventListener('click', () => {
+  const inputs = document.getElementsByClassName('inputElement');
+  const validate = new Validator(inputs,'form');
+});
 

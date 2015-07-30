@@ -12,20 +12,20 @@ class Page {
   }
 
   //Prompt the user with messages
-  _promptMsg(msg) {
-    const ans = prompt(msg);
-    return ans;
+  _promptMessage(message) {
+    const answer = prompt(message);
+    return answer;
   }
 
   //Validate user's name
-  _isInputCorrect(str) {
-    return /^[a-zA-Z\s]+((['-])*[a-zA-Z\s]+)*$/.test(str);
+  _isInputCorrect(data) {
+    return /^[a-zA-Z\s]+((['-])*[a-zA-Z\s]+)*$/.test(data);
   }
 
   //The method that actually welcomes the user
   greet() {
     if (firstname.trim() === '') {
-      firstname = this._promptMsg(':::Please enter your first name.');
+      firstname = this._promptMessage(':::Please enter your first name.');
       if (firstname === null) {
         flag = 1;
       } else {
@@ -33,13 +33,14 @@ class Page {
       }
     } else {
       while (!this._isInputCorrect(firstname)) {
-        firstname = this._promptMsg(':::Please enter a valid first name.');
+        firstname = this._promptMessage(':::Please enter a valid first name.');
         if (firstname === null) {
           flag = 1;
         }
       }
+
       if (lastname.trim() === '') {
-        lastname = this._promptMsg(':::Please enter your last name.');
+        lastname = this._promptMessage(':::Please enter your last name.');
         if (lastname === null) {
           flag = 1;
         } else {
@@ -47,29 +48,28 @@ class Page {
         }
       } else {
         while (!this._isInputCorrect(lastname)) {
-          lastname = this._promptMsg(':::Please enter a valid last name.');
+          lastname = this._promptMessage(':::Please enter a valid last name.');
           if (lastname === null) {
             flag = 1;
           }
         }
       }
     }
+
     if (flag === 0) {
       return `:::Hello ${firstname.trim()} ${lastname.trim()}`;
     } else {
      return 'You Cancelled. Welcome anyways.';
     }
-
   }
-
 }
 
 //Creating the DOM element to display welcome message
-const elm = document.getElementById('main');
+const element = document.getElementById('main');
 
 //Instantiating a Page Object
 const page = new Page();
-const grt = page.greet();
-alert(grt);
-elm.innerHTML = grt;
+const greet = page.greet();
+alert(greet);
+element.innerHTML = greet;
 

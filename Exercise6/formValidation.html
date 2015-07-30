@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset='UTF-8'>
     <title>Javascript Track</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel='stylesheet' type='text/css' href='style.css' />
     <script src='../traceurCompiler/bin/traceur.js'></script>
     <script src='../traceurCompiler/src/bootstrap.js'></script>
     <script>
@@ -11,64 +11,64 @@
     </script>
   </head>
   <body>
-    <form method="post" action="formValidation.html" id="frm" name="frm">
-      <div id="main">
-        <div class="header">
+    <form method='post' action='formValidation.html' id='form' name='form'>
+      <div id='main'>
+        <div class='header'>
           Registration Form
         </div>
 
-        <div class="content">
-          <div class="dataHolder">
-            <label class="var" for="id">Login Id</label>
-            <input type="text" name="id" id="id" class="val sm" />
+        <div class='content'>
+          <div class='dataHolder'>
+            <label class='variable' for='id'>Login Id</label>
+            <input type='text' name='id' id='id' class='val inputElement' />
           </div>
 
-          <div class="dataHolder">
-            <label class="var" for="email">Email</label>
-            <input type="text" name="email" id="email" class="val sm" />
+          <div class='dataHolder'>
+            <label class='variable' for='email'>Email</label>
+            <input type='text' name='email' id='email' class='val inputElement' />
           </div>
 
-          <div class="dataHolder">
-            <label class="var" for="name">Name</label>
-            <input type="text" name="name" id="name" class="val sm" />
+          <div class='dataHolder'>
+            <label class='variable' for='name'>Name</label>
+            <input type='text' name='name' id='name' class='val inputElement' />
           </div>
 
-          <div class="dataHolder">
-            <label class="var" for="timezone">Timezone</label>
-            <select class="val sm" id="timezone" name="timezone">
-              <option value="GMT">GMT</option>
-              <option value="CET">CET</option>
-              <option value="DST">DST</option>
+          <div class='dataHolder'>
+            <label class='variable' for='timezone'>Timezone</label>
+            <select class='val inputElement' id='timezone' name='timezone'>
+              <option value='GMT'>GMT</option>
+              <option value='CET'>CET</option>
+              <option value='DST'>DST</option>
             </select>
           </div>
 
-          <div class="dataHolder">
-            <label class="var" for="home">Home Page</label>
-            <input type="text" name="home" id="home" class="val sm" value="" />
+          <div class='dataHolder'>
+            <label class='variable' for='home'>Home Page</label>
+            <input type='text' name='home' id='home' class='val inputElement' value='' />
           </div>
 
-          <div class="dataHolder">
-            <label class="var" style="clear:both;" for="about">About me</label>
-            <textarea id="about" name="about" pattern="/.{50,}/" class="sm"></textarea>
+          <div class='dataHolder'>
+            <label class='variable' style='clear:both;' for='about'>About me</label>
+            <textarea id='about' name='about' pattern='/.{50,}/' class='inputElement'></textarea>
           </div>
 
-          <div class="dataHolder">
-            <input type="checkbox" name="note" id="note" style="float:left;" class="sm" value="note" />&nbsp;
-            <label class="var" style="width:300px;" for="note">Receive notification of comments</label>
-            <label style="clear:both;display:block;font-size:10px;">You will be sent an email when someone posts comments to your Blog or Album.</label>
+          <div class='dataHolder'>
+            <input type='checkbox' name='note' id='note' style='float:left;' class='inputElement' value='note' />&nbsp;
+            <label class='variable' style='width:300px;' for='note'>Receive notification of comments</label>
+            <label style='clear:both;display:block;font-size:10px;'>You will be sent an email when someone posts comments to your Blog or Album.</label>
           </div>
 
-          <div class="dataHolder">
-            <label style="clear:both;display:block;width:100%;text-align:center;">Your password will be mailed to you.</label>
+          <div class='dataHolder'>
+            <label style='clear:both;display:block;width:100%;text-align:center;'>Your password will be mailed to you.</label>
           </div>
 
-          <div class="dataHolder">
-            <input type="button" value="GO" class="sbm" id="sbm">
+          <div class='dataHolder'>
+            <input type='button' value='GO' class='submitButton' id='submitButton'>
           </div>
         </div>
       </div>
     </form>
-    <script type="module" src="Validator.js"></script>
+    <script type='module' src='Validator.js'></script>
   </body>
 </html>
 

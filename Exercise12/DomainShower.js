@@ -4,10 +4,10 @@
 class DomainShower {
 
   //The constructor of DomainShower class
-  constructor(elm) {
-    this._url = elm;
-    this._emptyMsg = ':::Enter a URL';
-    this._errorMsg = ':::No proper URL match found. Please enter a valid URL.';
+  constructor(element) {
+    this._url = element;
+    this._emptyMessage = ':::Enter a URL';
+    this._errorMessage = ':::No proper URL match found. Please enter a valid URL.';
     this._pattern = /^((((ht|f)tp(s)?:\/\/)?([\w-]{2,66}(\.)?)+\.[a-z]{2,4}\/?)|(file:\/\/\/([\w-]{2,66}(\.)?)+\/?))([\w]+([-_]*[\w\.]+)*\/?)*$/gi;
     this._showDomain();
   }
@@ -15,15 +15,15 @@ class DomainShower {
   //defining DomainShower method _showDomain()
   _showDomain() {
     const url = this._url.value.trim();
-    const emptyMsg = this._emptyMsg;
-    const errorMsg = this._errorMsg;
-    const ptn = this._pattern;
+    const emptyMessage = this._emptyMessage;
+    const errorMessage = this._errorMessage;
+    const pattern = this._pattern;
     if (url === '') {
         this._url.focus();
-        alert (emptyMsg) ;
-      } else if (!url.match(ptn)) {
+        alert (emptyMessage) ;
+      } else if (!url.match(pattern)) {
         this._url.focus();
-        alert (errorMsg) ;
+        alert (errorMessage) ;
       } else {
         const rootDomainLeft = url.substring(0, url.lastIndexOf('.'));
         const rootDomain = `${rootDomainLeft.substring(rootDomainLeft.lastIndexOf('.') + 1)}${url.substring(url.lastIndexOf('.'))}`;
@@ -37,17 +37,14 @@ class DomainShower {
 
           url = url.substring(url.indexOf('.') + 1);
         }
-
       }
-
   }
-
 }
 
-document.getElementById('sbm').onclick = () => {
+document.getElementById('submitButton').addEventListener('click', () => {
   const url = document.getElementById('url');
 
   //Instantiating DomainShower Object
   new DomainShower(url);
-};
+});
 

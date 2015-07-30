@@ -4,44 +4,43 @@
 class NumberChecker {
 
   //The constructor of NumberChecker class
-  constructor(elms) {
-    this._num = elms.num;
-    this._result = elms.result;
-    this._emptyMsg = ':::Enter a number';
-    this._errorMsg = ':::Please enter a valid NUMBER';
+  constructor(elements) {
+    this._number = elements.number;
+    this._result = elements.result;
+    this._emptyMessage = ':::Enter a number';
+    this._errorMessage = ':::Please enter a valid NUMBER';
     this._pattern = /^[0-9]+(\.)?[0-9]+$/;
     this._checkNumber();
   }
 
   //defining NumberChecker method _checkNumber()
   _checkNumber() {
-    const num = this._num.value.trim();
+    const number = this._number.value.trim();
     const result = this._result;
-    const emptyMsg = this._emptyMsg;
-    const errorMsg = this._errorMsg;
-    const ptn = this._pattern;
-    if (num === "") {
-      this._num.focus();
+    const emptyMessage = this._emptyMessage;
+    const errorMessage = this._errorMessage;
+    const pattern = this._pattern;
+    if (number === "") {
+      this._number.focus();
       this._result.value = '';
-      alert (emptyMsg) ;
-    } else if (!ptn.test(num)) {
-      this._num.focus();
+      alert (emptyMessage) ;
+    } else if (!pattern.test(number)) {
+      this._number.focus();
       this._result.value = '';
-      alert (errorMsg) ;
+      alert (errorMessage) ;
     } else {
       result.value = 'true';
     }
-
   }
-
 }
 
-document.getElementById('sbm').onclick = () => {
-  const inps = {
-    num : document.getElementById('num'),
+document.getElementById('submitButton').addEventListener('click', () => {
+  const inputs = {
+    number : document.getElementById('number'),
     result : document.getElementById('result'),
   };
-
-  new NumberChecker(inps);
-};
+  
+  //Instantiating a NumberChecker object with the input fields
+  new NumberChecker(inputs);
+});
 

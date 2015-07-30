@@ -59,7 +59,7 @@ textarea{
   width: 100%;
 }
 
-.var{
+.variable{
   font-weight: bold;
   width: 110px;
   margin-right: 10px;
@@ -67,12 +67,7 @@ textarea{
   float: left;
 }
 
-.val{
-  width: 150px;
-  float: left;
-}
-
-.sbm{
+.submitButton{
   width: 30px;
   height: 20px;
   margin: auto;

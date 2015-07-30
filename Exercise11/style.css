@@ -45,7 +45,7 @@ input[type="text"]{
   width: 100%;
 }
 
-.var{
+.variable{
   font-weight: bold;
   width: 110px;
   margin-right: 10px;
@@ -53,7 +53,7 @@ input[type="text"]{
   float: left;
 }
 
-.val{
+.value{
   width: 150px;
   float: left;
 }
