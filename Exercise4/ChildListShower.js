@@ -33,28 +33,18 @@ class ChildListShower {
 
 }
 
-//Collecting the parents' and Listening to onclick event
-const parents = document.getElementsByClassName('parent');
-
-Object.keys(parents).forEach((parent) => {
-  if (!isNaN(parent)) {
-    let theParent = parents[parent];
-    theParent.addEventListener('click', () => {
-
-      //Getting the child list and parent view port id
-      let childList = document.getElementById(theParent.value);
-      let mainParentForView = theParent.parentNode.parentNode.parentNode;
-
-      //instantiating a ChildListShower object
-      const childListShower = new ChildListShower(mainParentForView, childList);
-
-      //invoking ChildListShower's showChildList and hideChildList  Method
-      if (theParent.checked) {
-        childListShower.showChildList();
-      } else {
-        childListShower.hideChildList();
-      }
-    });
+const referenceDiv = document.getElementById('referenceDiv');
+referenceDiv.addEventListener('click', (theEvent) => {
+  const child = theEvent.target;
+  if (child.id) {
+    const mainParentForView = referenceDiv.parentNode;
+    const childList = document.getElementById(child.value);
+    if(child.checked){
+      new ChildListShower(mainParentForView, childList).showChildList();
+    } else {
+      new ChildListShower(mainParentForView, childList).hideChildList();
+    }
   }
 });
+
 

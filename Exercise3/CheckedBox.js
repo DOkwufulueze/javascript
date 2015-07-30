@@ -48,21 +48,16 @@ class CheckedBox {
 //instantiating a CheckedBox object
 const checkedBox = new CheckedBox();
 
-//Collecting the checkboxes' and Listening to onclick event
-const days = document.getElementsByTagName('INPUT');
-
-Object.keys(days).forEach((day) => {
-  if (!isNaN(day)) {
-    let theDay = days[day];
-    theDay.addEventListener('click', () => {
-
-      //invoking CheckedBox' confirmMaximum and removeBox Methods
-      if (theDay.checked) {
-        checkedBox.confirmMaximum(theDay);
-      } else {
-        checkedBox.removeBox(theDay);
-      }
-    });
+const form = document.getElementById('form');
+form.addEventListener('click', (theEvent) => {
+  const child = theEvent.target;
+  if (child.id) {
+    const childId = child.id;
+    if(child.checked){
+      checkedBox.confirmMaximum(child);
+    } else {
+      checkedBox.removeBox(child);
+    }
   }
 });
 
