@@ -47,9 +47,11 @@ class Row {
         if (targetClass === '_saveRow') {
           this._saveRow(count);
         }
+
         if (targetClass === '_editRow') {
           this._editRow(count);
         }
+        
         if (targetClass === '_deleteRow') {
           this._deleteRow(count);
         }
