@@ -117,20 +117,15 @@ class Row {
     return element;
   }
 
-  _isValidInput(source,renderer, sourceValue, title, count) {
-    if (sourceValue.trim() !== '') {
+  _isValidInput(sourceValue, title) {
+    if (sourceValue !== '') {
       if (this._pattern[title].test(sourceValue)) {
-        renderer.innerHTML = sourceValue;
         return true;
       } else {
-        source.focus();
-        alert(this._message[title].invalid);
         return false;
       }
     } else {
-      source.focus();
-      alert(this._message[title].empty);
-      return false;
+      return 'Empty';
     }
   }
 
@@ -140,10 +135,18 @@ class Row {
     if (document.getElementById(`span1~${count}`) && document.getElementById(`textField~${count}`)) {
       const source = document.getElementById(`textField~${count}`);
       const renderer = document.getElementById(`span1~${count}`);
-      const sourceValue = source.value;
+      const sourceValue = source.value.trim();
       const title = 'name';
-      if (!this._isValidInput(source,renderer, sourceValue, title, count)) {
+      if (!this._isValidInput(sourceValue, title)) {
+        source.focus();
+        alert(this._message[title].invalid);
         return false;
+      } else if (this._isValidInput(sourceValue, title) === 'Empty') {
+        source.focus();
+        alert(this._message[title].empty);
+        return false;
+      } else{
+        renderer.innerHTML = sourceValue;
       }
     } else{
       return false;
@@ -155,8 +158,16 @@ class Row {
       const renderer = document.getElementById(`span2~${count}`);
       const sourceValue = source.value;
       const title = 'email';
-      if (!this._isValidInput(source,renderer, sourceValue, title, count)) {
+      if (!this._isValidInput(sourceValue, title)) {
+        source.focus();
+        alert(this._message[title].invalid);
         return false;
+      } else if (this._isValidInput(sourceValue, title) === 'Empty') {
+        source.focus();
+        alert(this._message[title].empty);
+        return false;
+      } else{
+        renderer.innerHTML = sourceValue;
       }
     } else{
       return false;
