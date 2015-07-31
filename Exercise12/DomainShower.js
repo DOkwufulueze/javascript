@@ -9,11 +9,11 @@ class DomainShower {
     this._emptyMessage = ':::Enter a URL';
     this._errorMessage = ':::No proper URL match found. Please enter a valid URL.';
     this._pattern = /^((((ht|f)tp(s)?:\/\/)?([\w-]{2,66}(\.)?)+\.[a-z]{2,4}\/?)|(file:\/\/\/([\w-]{2,66}(\.)?)+\/?))([\w]+([-_]*[\w\.]+)*\/?)*$/gi;
-    this._showDomain();
+    this._init();
   }
 
-  //defining DomainShower method _showDomain()
-  _showDomain() {
+  //defining DomainShower method _init()
+  _init() {
     const url = this._url.value.trim();
     const emptyMessage = this._emptyMessage;
     const errorMessage = this._errorMessage;

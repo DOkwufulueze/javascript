@@ -10,11 +10,11 @@ class NumberChecker {
     this._emptyMessage = ':::Enter a number';
     this._errorMessage = ':::Please enter a valid NUMBER';
     this._pattern = /^[0-9]+((\.[0-9]+)|[0-9]*)?$/;
-    this._checkNumber();
+    this._init();
   }
 
-  //defining NumberChecker method _checkNumber()
-  _checkNumber() {
+  //defining NumberChecker method _init()
+  _init() {
     const number = this._number.value.trim();
     const result = this._result;
     const emptyMessage = this._emptyMessage;

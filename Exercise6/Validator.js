@@ -34,11 +34,11 @@ class Validator {
       about : /^.{50,}$/,
     };
 
-    this._validate();
+    this._init();
   }
 
-  //defining Validator method _validate()
-  _validate() {
+  //defining Validator method _init()
+  _init() {
     const elements = this._elements;
     const emptyMessage = this._emptyMessage;
     const errorMessage = this._errorMessage;
