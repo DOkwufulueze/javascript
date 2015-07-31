@@ -28,18 +28,34 @@ class Row {
     rowcounter += 1;
     const count = rowcounter;
 
-    //creating elements using createTag(cursor,display,element,id,innerHtml,onclick,placeholder,textAlign,type,value,width)
-    const row = this._createTag('NA','NA','TR',`row~${count}`,'NA','NA','NA','NA','NA','NA');
-    const column1 = this._createTag('NA','NA','TD',`column1~${count}`,'NA','NA','NA','left','NA','NA','NA');
-    const column2 = this._createTag('NA','NA','TD',`column2~${count}`,'NA','NA','NA','left','NA','NA','NA');
-    const column3 = this._createTag('NA','NA','TD',`column3~${count}`,'NA','NA','NA','left','NA','NA','NA');
-    const textField = this._createTag('NA','inline-block','INPUT',`textField~${count}`,'NA','NA','Name','NA','text','NA','100%');
-    const mailField = this._createTag('NA','inline-block','INPUT',`mailField~${count}`,'NA','NA','Email','NA','email','NA','100%');
-    const span1 = this._createTag('NA','none','SPAN',`span1~${count}`,'NA','NA','NA','NA','NA','NA','100%');
-    const span2 = this._createTag('NA','none','SPAN',`span2~${count}`,'NA','NA','NA','NA','NA','NA','100%');
-    const save = this._createTag('NA','inline-block','INPUT',`save~${count}`,'NA',() => { this._saveRow(count); },'NA','NA','button','Save','100%');
-    const edit = this._createTag('pointer','none','A',`edit~${count}`,'Edit','NA','NA','NA','NA','NA','45%');
-    const deleteButton = this._createTag('pointer','none','A',`deleteButton~${count}`,'Delete','NA','NA','NA','NA','NA','45%');
+    //creating elements using createTag(called,cursor,display,element,id,innerHtml,placeholder,textAlign,type,value,width)
+    const row = this._createTag('NA','NA','NA','TR',`row~${count}`,'NA','NA','NA','NA','NA','NA');
+    const column1 = this._createTag('NA','NA','NA','TD',`column1~${count}`,'NA','NA','left','NA','NA','NA');
+    const column2 = this._createTag('NA','NA','NA','TD',`column2~${count}`,'NA','NA','left','NA','NA','NA');
+    const column3 = this._createTag('NA','NA','NA','TD',`column3~${count}`,'NA','NA','left','NA','NA','NA');
+    const textField = this._createTag('NA','NA','inline-block','INPUT',`textField~${count}`,'NA','Name','NA','text','NA','100%');
+    const mailField = this._createTag('NA','NA','inline-block','INPUT',`mailField~${count}`,'NA','Email','NA','email','NA','100%');
+    const span1 = this._createTag('NA','NA','none','SPAN',`span1~${count}`,'NA','NA','NA','NA','NA','100%');
+    const span2 = this._createTag('NA','NA','none','SPAN',`span2~${count}`,'NA','NA','NA','NA','NA','100%');
+    const save = this._createTag('_saveRow','NA','inline-block','INPUT',`save~${count}`,'NA','NA','NA','button','Save','100%');
+    const edit = this._createTag('_editRow','pointer','none','A',`edit~${count}`,'Edit','NA','NA','NA','NA','45%');
+    const deleteButton = this._createTag('_deleteRow','pointer','none','A',`deleteButton~${count}`,'Delete','NA','NA','NA','NA','45%');
+    row.addEventListener('click', (theEvent) => {
+      const target = theEvent.target;
+      if (target.class) {
+        const targetClass = target.class;
+        if (targetClass === '_saveRow') {
+          this._saveRow(count);
+        }
+        if (targetClass === '_editRow') {
+          this._editRow(count);
+        }
+        if (targetClass === '_deleteRow') {
+          this._deleteRow(count);
+        }
+      }
+    });
+
     column1.appendChild(textField);
     column2.appendChild(mailField);
     column1.appendChild(span1);
@@ -54,8 +70,12 @@ class Row {
     return row;
   }
 
-  _createTag(cursor,display,element,id,innerHtml,onclick,placeholder,textAlign,type,value,width) {
+  _createTag(called,cursor,display,element,id,innerHtml,placeholder,textAlign,type,value,width) {
     const element = document.createElement(element);
+    if (called !== 'NA') {
+      element.class = called;
+    }
+
     if (cursor !== 'NA') {
       element.style.cursor = cursor;
     }
@@ -70,10 +90,6 @@ class Row {
 
     if (innerHtml !== 'NA') {
       element.innerHTML = innerHtml;
-    }
-
-    if (onclick !== 'NA') {
-      element.onclick = onclick;
     }
 
     if (placeholder !== 'NA') {
@@ -144,21 +160,6 @@ class Row {
       return false;
     }
 
-    //Setting the edit and delete links to do their functions
-    if (document.getElementById(`edit~${count}`)) {
-      const edit = document.getElementById(`edit~${count}`);
-      edit.onclick = () => { this._editRow(count); };
-    } else{
-      return false;
-    }
-
-    if (document.getElementById(`deleteButton~${count}`)) {
-      const deleteButton = document.getElementById(`deleteButton~${count}`);
-      deleteButton.onclick = () => { this._deleteRo(count); };
-    } else{
-      return false;
-    }
-
     //Saving inputs
     if (confirm(':::Are you sure you want to Save record?') == true) {
 
@@ -183,7 +184,7 @@ class Row {
     document.getElementById(`save~${count}`).style.display = 'inline-block';
   }
 
-  _deleteRo(count) {
+  _deleteRow(count) {
     const cnf = confirm(':::Are you sure you want to Delete record?');
     if (cnf === true) {
       this._table.removeChild(document.getElementById(`row~${count}`));
