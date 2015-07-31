@@ -1,66 +1,56 @@
 'use strict'
 
-let firstname = '';
-let lastname = '';
-let flag = 0;
-
 class Page {
 
   //class Page constructor
-  constructor() {
-    
+  constructor(element) {
+    this._element = element;
+    this._init();
+  }
+
+  _init() {
+    let flag = 0;
+    let firstname = this._promptMessage(':::Please enter your first name.');
+    while (!this._isInputCorrect(firstname)) {
+      firstname = this._promptMessage(':::Please enter a valid first name.');
+    }
+    if(firstname !== null){
+      firstname = firstname.trim();
+      let lastname = this._promptMessage(':::Please enter your last name.');
+      while (!this._isInputCorrect(lastname)) {
+        lastname = this._promptMessage(':::Please enter a valid last name.');
+      }
+      if (lastname !== null) {
+        lastname = lastname.trim();
+        this._greet(`:::Hello ${firstname} ${lastname}`);
+      } else {
+        this._greetAnyways(':::You cancelled. Welcome anyways.');
+      }
+    } else {
+      this._greetAnyways(':::You cancelled. Welcome anyways.');
+    } 
   }
 
   //Prompt the user with messages
   _promptMessage(message) {
-    const answer = prompt(message);
-    return answer;
+    return prompt(message);
   }
 
   //Validate user's name
   _isInputCorrect(data) {
-    return /^[a-zA-Z\s]+((['-])*[a-zA-Z\s]+)*$/.test(data);
+    return /^(\s)*[a-zA-Z]+(\s)*((\s)*(['-])*(\s)*[a-zA-Z]+(\s)*)*$/.test(data);
   }
 
   //The method that actually welcomes the user
-  greet() {
-    if (firstname.trim() === '') {
-      firstname = this._promptMessage(':::Please enter your first name.');
-      if (firstname === null) {
-        flag = 1;
-      } else {
-        this.greet();
-      }
-    } else {
-      while (!this._isInputCorrect(firstname)) {
-        firstname = this._promptMessage(':::Please enter a valid first name.');
-        if (firstname === null) {
-          flag = 1;
-        }
-      }
+  _greet(message) {
+    alert(message);
+    this._element.innerHTML = message;
+  }
 
-      if (lastname.trim() === '') {
-        lastname = this._promptMessage(':::Please enter your last name.');
-        if (lastname === null) {
-          flag = 1;
-        } else {
-          this.greet();
-        }
-      } else {
-        while (!this._isInputCorrect(lastname)) {
-          lastname = this._promptMessage(':::Please enter a valid last name.');
-          if (lastname === null) {
-            flag = 1;
-          }
-        }
-      }
-    }
-
-    if (flag === 0) {
-      return `:::Hello ${firstname.trim()} ${lastname.trim()}`;
-    } else {
-     return 'You Cancelled. Welcome anyways.';
-    }
+  //Welcomes the user anyways
+  _greetAnyways(message) {
+    alert(message);
+    this._element.innerHTML = message;
   }
 }
 
@@ -68,8 +58,5 @@ class Page {
 const element = document.getElementById('main');
 
 //Instantiating a Page Object
-const page = new Page();
-const greet = page.greet();
-alert(greet);
-element.innerHTML = greet;
+const page = new Page(element);
 

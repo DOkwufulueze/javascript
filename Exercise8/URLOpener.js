@@ -1,20 +1,31 @@
 'use strict'
 
-let url = ''; 
-let flag = 0;
-
 class URLOpener {
 
   //class URLOpener constructor
   constructor(windowWidth, windowHeight) {
     this._windowWidth = windowWidth;
     this._windowHeight = windowHeight;
+    this._init();
+  }
+
+  _init() {
+    let url = this._promptMessage(':::Please enter URL.');
+    while (!this._isInputCorrect(url) && url !== null) {
+      url = this._promptMessage(':::Please enter a valid URL.');
+    }
+
+    if (url !== null) {
+      url = url.trim();
+      this._openURL(url);
+    } else {
+      alert('You Cancelled. Thanks for Coming.');
+    }
   }
 
   //Prompt the user with messages
   _promptMessage(message) {
-    const answer = prompt(message);
-    return answer;
+    return prompt(message);
   }
 
   //Validate user's url
@@ -23,46 +34,16 @@ class URLOpener {
   }
 
   //Receive URL and Open it
-  openURL() {
-    if (url.trim() === '') {
-      url = this._promptMessage(':::Please enter URL.');
-      if (url === null) {
-        flag = 1;
-      } else {
-        while (!this._isInputCorrect(url)) {
-          url = this._promptMessage(':::Please enter a valid URL.');
-          if (url === null) {
-            flag = 1;
-            break;
-          }
-        }
-      }
-    } else {
-      while (!this._isInputCorrect(url)) {
-        url = this._promptMessage(':::Please enter a valid URL.');
-        if (url === null) {
-          flag = 1;
-          break;
-        }
-      }
+  _openURL(url) {
+    //url does not contain http, https, ftp and ftps://
+    if (url.search('http://') < 0 && url.search('https://') < 0 && url.search('ftp://') < 0 && url.search('ftps://') < 0 && url.search('file:///') < 0) {
+      url = `http://${url}`;
     }
 
-    if (flag === 0) {
-      url = url.trim();
-
-      //url does not contain http, https, ftp and ftps://
-      if (url.search('http://') < 0 && url.search('https://') < 0 && url.search('ftp://') < 0 && url.search('ftps://') < 0 && url.search('file:///') < 0) {
-        url = `http://${url}`;
-      }
-
-      window.open(url,'_blank',`width = ${this._windowWidth}, height = ${this._windowHeight},menubar = no, titlebar = no, toolbar = no, scrollbars = no`);
-    } else {
-     alert('You Cancelled. Thanks for Coming.');
-    }
+    window.open(url,'_blank',`width = ${this._windowWidth}, height = ${this._windowHeight},menubar = no, titlebar = no, toolbar = no, scrollbars = no`);
   }
 }
 
 //Instantiating URLOpener Object
-const urlOpener = new URLOpener(400, 450);
-urlOpener.openURL();
+new URLOpener(400, 450);
 

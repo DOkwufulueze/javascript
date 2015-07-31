@@ -16,20 +16,16 @@ class NumberChecker {
   //defining NumberChecker method _init()
   _init() {
     const number = this._number.value.trim();
-    const result = this._result;
-    const emptyMessage = this._emptyMessage;
-    const errorMessage = this._errorMessage;
-    const pattern = this._pattern;
     if (number === "") {
       this._number.focus();
       this._result.value = '';
-      alert (emptyMessage) ;
-    } else if (!pattern.test(number)) {
+      alert (this._emptyMessage) ;
+    } else if (!this._pattern.test(number)) {
       this._number.focus();
       this._result.value = '';
-      alert (errorMessage) ;
+      alert (this._errorMessage) ;
     } else {
-      result.value = 'true';
+      this._result.value = 'true';
     }
   }
 }

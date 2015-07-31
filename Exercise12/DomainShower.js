@@ -15,15 +15,12 @@ class DomainShower {
   //defining DomainShower method _init()
   _init() {
     const url = this._url.value.trim();
-    const emptyMessage = this._emptyMessage;
-    const errorMessage = this._errorMessage;
-    const pattern = this._pattern;
     if (url === '') {
         this._url.focus();
-        alert (emptyMessage) ;
-      } else if (!url.match(pattern)) {
+        alert (this._emptyMessage) ;
+      } else if (!url.match(this._pattern)) {
         this._url.focus();
-        alert (errorMessage) ;
+        alert (this._errorMessage) ;
       } else {
         const rootDomainLeft = url.substring(0, url.lastIndexOf('.'));
         const rootDomain = `${rootDomainLeft.substring(rootDomainLeft.lastIndexOf('.') + 1)}${url.substring(url.lastIndexOf('.'))}`;

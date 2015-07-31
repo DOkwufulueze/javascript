@@ -2,11 +2,30 @@ body{
   font-size: 14px;
 }
 
-.main{
+#main{
   height: 100px;
   overflow: auto;
   width:850px;
   margin:auto;
   position: relative;
+}
+
+th, td {
+  width: 250px;
+}
+
+input {
+  width: 220px;
+}
+
+a {
+  display: none;
+  width: 100px;
+  cursor: pointer;
+}
+
+span {
+  display: none;
+  width: 220px;
 }
 

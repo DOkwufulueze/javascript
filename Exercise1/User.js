@@ -7,7 +7,7 @@ class User {
     this._name = name;
     this._age = age;
     this._pattern = {
-      name : /^[a-zA-Z\s]+((['-])*[a-zA-Z\s]+)*$/,
+      name : /^(\s)*[a-zA-Z]+(\s)*((\s)*(['-])*(\s)*[a-zA-Z]+(\s)*)*$/,
       age : /^[0-9]+$/,
     };
   }

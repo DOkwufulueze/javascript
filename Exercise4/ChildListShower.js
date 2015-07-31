@@ -3,48 +3,51 @@
 class ChildListShower {
 
   //ChildListShower constructor
-  constructor(mainParentForView, childList) {
-    this._childList = childList;
-    this._childListChildren = this._childList.children;
-    this._mainParentForView = mainParentForView;
+  constructor(referenceDiv) {
+    this._referenceDiv = referenceDiv;
+    this._init();
+  }
+
+  _init() {
+    referenceDiv = this._referenceDiv;
+    referenceDiv.addEventListener('click', (theEvent) => {
+      const child = theEvent.target;
+      if (child.id) {
+        const mainParentForView = referenceDiv.parentNode;
+        const childList = document.getElementById(child.value);
+        if(child.checked){
+          this._showChildList(mainParentForView, childList);
+        } else {
+          this._hideChildList(mainParentForView, childList);
+        }
+      }
+    });
   }
 
   //defining ChildListShower methods
-  showChildList() {
-    this._childList.style.display = 'block';
-    const children = this._childListChildren;
+  _showChildList(mainParentForView, childList) {
+    childList.style.display = 'block';
+    const children = childList.children;
     Object.keys(children).forEach((child) => {
       if (children[child].tagName == 'INPUT') {
         children[child].checked = true;
       }
     });
-    this._mainParentForView.scrollTop = this._mainParentForView.scrollHeight;
+    mainParentForView.scrollTop = mainParentForView.scrollHeight;
   }
 
-  hideChildList() {
-    const children = this._childListChildren;
+  _hideChildList(mainParentForView, childList) {
+    const children = childList.children;
     Object.keys(children).forEach((child) => {
       if (children[child].tagName == 'INPUT') {
         children[child].checked = false;
       }
     });
-    this._childList.style.display = 'none';
+    childList.style.display = 'none';
   }
 
 }
 
 const referenceDiv = document.getElementById('referenceDiv');
-referenceDiv.addEventListener('click', (theEvent) => {
-  const child = theEvent.target;
-  if (child.id) {
-    const mainParentForView = referenceDiv.parentNode;
-    const childList = document.getElementById(child.value);
-    if(child.checked){
-      new ChildListShower(mainParentForView, childList).showChildList();
-    } else {
-      new ChildListShower(mainParentForView, childList).hideChildList();
-    }
-  }
-});
-
+new ChildListShower(referenceDiv);
 

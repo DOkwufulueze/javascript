@@ -6,9 +6,10 @@ class CountryMover {
   constructor(fromBox, toBox) {
     this._fromBox = fromBox;
     this._toBox = toBox;
+    this._init();
   }
 
-  moveSelection() {
+  _init() {
     const fromBox = this._fromBox;
     const toBox = this._toBox;
     let selectedData = 0;
@@ -95,7 +96,7 @@ Object.keys(boxButtons).forEach((button) => {
   document.getElementById(button).addEventListener('click', () => {
 
     //Instantiating a CountryMover object
-    new CountryMover(boxButtons[button].first, boxButtons[button].second).moveSelection();
+    new CountryMover(boxButtons[button].first, boxButtons[button].second);
   });
 });
 

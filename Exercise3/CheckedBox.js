@@ -4,20 +4,37 @@
 class CheckedBox {
 
   //CheckedBox constructor
-  constructor() {
+  constructor(form) {
     this._checkedBoxes = [];//empty array of checked boxes
     this._none = document.getElementById('None');
+    this._form = form;
+    this._init();
+  }
+
+  _init() {
+    const form = this._form;
+    form.addEventListener('click', (theEvent) => {
+      const child = theEvent.target;
+      if (child.id) {
+        if(child.checked){
+          this._confirmMaximum(child);
+        } else {
+          this._removeBox(child);
+        }
+      }
+    });
+
   }
 
   //defining CheckedBox methods
-  confirmMaximum(box) {
+  _confirmMaximum(box) {
     if (box.id === 'None') {
       this._uncheckDays();
     } else {
       this._none.checked = false;
       const all = this._checkedBoxes;
       if (all.length >= 3) {
-        alert(':::Only 3 days can be selected.');
+        alert(`:::You already selected ${all[0].value}, ${all[1].value}, ${all[2].value}. Only 3 days can be selected.`);
         box.checked = false;
       } else {
         this._addChecked(box);
@@ -39,24 +56,14 @@ class CheckedBox {
     this._checkedBoxes=[];
   }
 
-  removeBox(box) {
+  _removeBox(box) {
     const ind = this._checkedBoxes.indexOf(box);
     this._checkedBoxes.splice(ind, 1);
   }
 }
 
-//instantiating a CheckedBox object
-const checkedBox = new CheckedBox();
-
 const form = document.getElementById('form');
-form.addEventListener('click', (theEvent) => {
-  const child = theEvent.target;
-  if (child.id) {
-    if(child.checked){
-      checkedBox.confirmMaximum(child);
-    } else {
-      checkedBox.removeBox(child);
-    }
-  }
-});
+
+//instantiating a CheckedBox object
+new CheckedBox(form);
 
