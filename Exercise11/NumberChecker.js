@@ -9,7 +9,7 @@ class NumberChecker {
     this._result = elements.result;
     this._emptyMessage = ':::Enter a number';
     this._errorMessage = ':::Please enter a valid NUMBER';
-    this._pattern = /^[0-9]+(\.)?[0-9]+$/;
+    this._pattern = /^[0-9]+((\.[0-9]+)|[0-9]*)?$/;
     this._checkNumber();
   }
 
