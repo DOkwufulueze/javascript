@@ -21,7 +21,8 @@ class Table {
       },
     };
 
-    this._table = this._createElement('TABLE', 'NA', 'main');
+    this._table = this._createElement('TABLE');
+    this._table.id = 'main';
     this._init();
   }
 
@@ -30,14 +31,15 @@ class Table {
     const table = this._table;
     
     //_createElement takes the element type and the id of row
-    const row = this._createElement('TR', 'NA', 'row0');
-    const column1 = this._createElement('TH', 'NA', 'column01');
+    const row = this._createElement('TR');
+    const column1 = this._createElement('TH');
     column1.innerHTML = 'Name';
-    const column2 = this._createElement('TH', 'NA', 'column02');
+    const column2 = this._createElement('TH');
     column2.innerHTML = 'Email';
-    const column3 = this._createElement('TH', 'NA', 'column03');
+    const column3 = this._createElement('TH');
     column3.innerHTML = 'Action';
-    const button = this._createElement('INPUT', 'button', 'column03');
+    const button = this._createElement('INPUT');
+    button.type = 'button';
     button.value = 'Add New Row';
     button.addEventListener('click', () => {
       this._addNewRow();
@@ -54,45 +56,82 @@ class Table {
     document.body.appendChild(button);
   }
 
-  _createElement(tag, type, id) {
-    const element = document.createElement(tag);
-    element.id = id;
-    if (type !== 'NA') {
-      element.type = type;
-    }
-    return element;
+  _createElement(tag) {
+    return document.createElement(tag);
   }
 
   _addNewRow() {
-    rowcounter += 1;
-    const count = rowcounter;
-
-    //creating elements using createTag(called,cursor,display,element,id,innerHtml,placeholder,textAlign,type,value,width)
-    const row = this._createElement('TR','NA',`row~${count}`);
-    const column1 = this._createElement('TD','NA',`column1~${count}`);
-    const column2 = this._createElement('TD','NA',`column2~${count}`);
-    const column3 = this._createElement('TD','NA',`column3~${count}`);
-    const textField = this._createElement('INPUT','text',`textField~${count}`);
-    const mailField = this._createElement('INPUT','text',`mailField~${count}`);
-    const span1 = this._createElement('SPAN','NA',`span1~${count}`);
-    const span2 = this._createElement('SPAN','NA',`span2~${count}`);
     
-    //save formatting
-    const save = this._createElement('INPUT','button',`save~${count}`);
-    save.class = 'save';
-    save.value = 'Save';
+    //creating elements using createElement(tag)
+    const row = this._createElement('TR');
+    const column1 = this._createElement('TD');
+    const column2 = this._createElement('TD');
+    const column3 = this._createElement('TD');
+    const textField = this._createElement('INPUT');
+    textField.type = 'text';
+    const mailField = this._createElement('INPUT');
+    mailField.type = 'text';
+    const span1 = this._createElement('SPAN');
+    const span2 = this._createElement('SPAN');
+    const save = this._createElement('INPUT');
+    const deleteLink = this._createElement('A');
+    const edit = this._createElement('A');
+    
+    //Creating row group (the group of all the elements in a row)
+    const rowGroup = this._createRowGroup(row, textField, mailField, span1, span2, save, edit, deleteLink);
+    
+    //formatting save button and creating target-event object for it
+    this._formatElement(save,'save','NA','button','Save');
+    const saveTargetObject = this._createTargetObject(save, () => {this._saveRow(rowGroup)});
 
-    //edit formatting
-    const edit = this._createElement('A','NA',`edit~${count}`);
-    edit.class = 'edit';
-    edit.innerHTML = 'Edit';
+    //formatting edit link and creating target-event object for it
+    this._formatElement(edit,'edit','Edit','NA','NA');
+    const editTargetObject = this._createTargetObject(edit, () => {this._editRow(rowGroup)});
 
-    //deleteButton formatting
-    const deleteButton = this._createElement('A','NA',`deleteButton~${count}`);
-    deleteButton.class = 'delete';
-    deleteButton.innerHTML = 'Delete';
+    //formatting deleteLink link and creating target-event object for it
+    this._formatElement(deleteLink,'delete','Delete','NA','NA');
+    const deleteTargetObject = this._createTargetObject(deleteLink, () => {this._deleteRow(row)});
 
-    const rowGroup = {
+    //Adding eventListener for the row
+    this._addEventListener(row, saveTargetObject);
+    this._addEventListener(row, editTargetObject);
+    this._addEventListener(row, deleteTargetObject);
+
+    //Appending elements to parents
+    this._appendElement(column1, {textField, span1});
+    this._appendElement(column2, {mailField, span2});
+    this._appendElement(column3, {save, edit, deleteLink});
+    this._appendElement(row, {column1, column2, column3});
+    this._appendElement(this._table, {row});    
+  }
+
+  _createTargetObject(element, method) {
+    return {
+      targetElement : element,
+      trigger : method,
+    }
+  }
+
+  //Adding event listener to element
+  _addEventListener(element, targetObject) {
+    element.addEventListener('click', (theEvent) => {
+      const target = theEvent.target;
+      if (target === targetObject.targetElement) {
+        targetObject.trigger();
+      }
+    });
+  }
+
+  //Appending elements to parents
+  _appendElement(element, elementsObject) {
+    Object.keys(elementsObject).forEach((child) => {
+      element.appendChild(elementsObject[child]);
+    });
+  }
+
+  //Creating a row group
+  _createRowGroup(row, textField, mailField, span1, span2, save, edit, deleteLink) {
+    return {
       row,
       textField,
       mailField,
@@ -100,39 +139,16 @@ class Table {
       span2,
       save,
       edit,
-      deleteButton,
+      deleteLink,
     };
+  }    
 
-    row.addEventListener('click', (theEvent) => {
-      const target = theEvent.target;
-      if (target.class) {
-        const targetClass = target.class;
-        if (targetClass === 'save') {
-          this._saveRow(rowGroup);
-        }
-
-        if (targetClass === 'edit') {
-          this._editRow(rowGroup);
-        }
-        
-        if (targetClass === 'delete') {
-          this._deleteRow(row);
-        }
-      }
-    });
-
-    column1.appendChild(textField);
-    column2.appendChild(mailField);
-    column1.appendChild(span1);
-    column2.appendChild(span2);
-    column3.appendChild(save);
-    column3.appendChild(edit);
-    column3.appendChild(deleteButton);
-    row.appendChild(column1);
-    row.appendChild(column2);
-    row.appendChild(column3);
-    this._table.appendChild(row);
-    return row;
+  //_formatElement formats an element with its parameters' values
+  _formatElement(element, elementClass, innerHTML, type, value) {
+    element.class = (elementClass !== 'NA') ? elementClass : '';
+    element.innerHTML = (innerHTML !== 'NA') ? innerHTML : null;
+    element.type = (type !== 'NA') ? type : '';
+    element.value = (value !== 'NA') ? value : '';
   }
 
   _isValidInput(sourceValue, title) {
@@ -148,52 +164,54 @@ class Table {
   }
 
   _saveRow(rowGroup) {
+    let flag = 0;
+
+    //Validating entries and showing containing span
+    const entries = {
+      name : {
+        title : 'name',
+        source : rowGroup.textField,
+        sourceValue : rowGroup.textField.value.trim(),
+        renderer : rowGroup.span1,
+      },
+
+      email : {
+        title : 'email',
+        source : rowGroup.mailField,
+        sourceValue : rowGroup.mailField.value.trim(),
+        renderer : rowGroup.span2,
+      },
+    };
+
+    Object.keys(entries).some((entry) => {
+      if (!this._isValidInput(entries[entry].sourceValue, entries[entry].title)) {
+        entries[entry].source.focus();
+        alert(this._message[entries[entry].title].invalid);
+        flag = 1;
+        return true;
+      } else if (this._isValidInput(entries[entry].sourceValue, entries[entry].title) === 'Empty') {
+        entries[entry].source.focus();
+        alert(this._message[entries[entry].title].empty);
+        flag = 1;
+        return true;
+      } else{
+        entries[entry].renderer.innerHTML = entries[entry].sourceValue;
+      }
+    });
     
-    //Validating Name and showing containing span
-    const source = rowGroup.textField;
-    const renderer = rowGroup.span1;
-    const sourceValue = source.value.trim();
-    const title = 'name';
-    if (!this._isValidInput(sourceValue, title)) {
-      source.focus();
-      alert(this._message[title].invalid);
-      return false;
-    } else if (this._isValidInput(sourceValue, title) === 'Empty') {
-      source.focus();
-      alert(this._message[title].empty);
-      return false;
-    } else{
-      renderer.innerHTML = sourceValue;
-    }
+    if (flag === 0) {
+      //Saving inputs
+      if (confirm(':::Are you sure you want to Save record?') == true) {
 
-    //Validating Email and showing containing span
-    const source = rowGroup.mailField;
-    const renderer = rowGroup.span2;
-    const sourceValue = source.value;
-    const title = 'email';
-    if (!this._isValidInput(sourceValue, title)) {
-      source.focus();
-      alert(this._message[title].invalid);
-      return false;
-    } else if (this._isValidInput(sourceValue, title) === 'Empty') {
-      source.focus();
-      alert(this._message[title].empty);
-      return false;
-    } else{
-      renderer.innerHTML = sourceValue;
-    }
-
-    //Saving inputs
-    if (confirm(':::Are you sure you want to Save record?') == true) {
-
-      //Reveal Edit and Delete Links and Hiding Save Button
-      rowGroup.save.style.display = 'none';
-      rowGroup.textField.style.display = 'none';
-      rowGroup.mailField.style.display = 'none';
-      rowGroup.span1.style.display = 'inline-block';
-      rowGroup.span2.style.display = 'inline-block';
-      rowGroup.edit.style.display = 'inline-block';
-      rowGroup.deleteButton.style.display = 'inline-block';
+        //Reveal Edit and Delete Links and Hiding Save Button
+        rowGroup.save.style.display = 'none';
+        rowGroup.textField.style.display = 'none';
+        rowGroup.mailField.style.display = 'none';
+        rowGroup.span1.style.display = 'inline-block';
+        rowGroup.span2.style.display = 'inline-block';
+        rowGroup.edit.style.display = 'inline-block';
+        rowGroup.deleteLink.style.display = 'inline-block';
+      }
     }
   }
 
@@ -204,7 +222,7 @@ class Table {
     rowGroup.span1.style.display = 'none';
     rowGroup.span2.style.display = 'none';
     rowGroup.edit.style.display = 'none';
-    rowGroup.deleteButton.style.display = 'none';
+    rowGroup.deleteLink.style.display = 'none';
   }
 
   _deleteRow(row) {
@@ -215,6 +233,5 @@ class Table {
   }
 }
 
-let rowcounter = 0;
 new Table();
 
