@@ -1,8 +1,8 @@
 'use strict'
 
-class ChildListShower {
+class ChildListManager {
 
-  //ChildListShower constructor
+  //ChildListManager constructor
   constructor(referenceDiv) {
     this._referenceDiv = referenceDiv;
     this._init();
@@ -10,10 +10,15 @@ class ChildListShower {
 
   _init() {
     referenceDiv = this._referenceDiv;
-    referenceDiv.addEventListener('click', (theEvent) => {
+    this._attachEventListener(referenceDiv);
+  }
+
+  //Attaching event listener
+  _attachEventListener(element) {
+    element.addEventListener('click', (theEvent) => {
       const child = theEvent.target;
       if (child.id) {
-        const mainParentForView = referenceDiv.parentNode;
+        const mainParentForView = element.parentNode;
         const childList = document.getElementById(child.value);
         if(child.checked){
           this._showChildList(mainParentForView, childList);
@@ -24,7 +29,7 @@ class ChildListShower {
     });
   }
 
-  //defining ChildListShower methods
+  //defining ChildListManager methods
   _showChildList(mainParentForView, childList) {
     childList.style.display = 'block';
     const children = childList.children;
@@ -49,5 +54,5 @@ class ChildListShower {
 }
 
 const referenceDiv = document.getElementById('referenceDiv');
-new ChildListShower(referenceDiv);
+new ChildListManager(referenceDiv);
 

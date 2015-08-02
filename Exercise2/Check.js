@@ -3,7 +3,7 @@
 class Check {
 
   //Check constructor
-  constructor(elements,howMany) {
+  constructor(elements, howMany) {
     this._checkBoxes = elements;
     this._howMany = howMany;
     this._init();// run the checking and unchecking of the checkboxes

@@ -3,8 +3,8 @@
 class Page {
 
   //class Page constructor
-  constructor(element) {
-    this._element = element;
+  constructor(messageBox) {
+    this._messageBox = messageBox;
     this._init();
   }
 
@@ -44,19 +44,19 @@ class Page {
   //The method that actually welcomes the user
   _greet(message) {
     alert(message);
-    this._element.innerHTML = message;
+    this._messageBox.innerHTML = message;
   }
 
   //Welcomes the user anyways
   _greetAnyways(message) {
     alert(message);
-    this._element.innerHTML = message;
+    this._messageBox.innerHTML = message;
   }
 }
 
-//Creating the DOM element to display welcome message
-const element = document.getElementById('main');
+//Creating the DOM messageBox to display welcome message
+const messageBox = document.getElementById('main');
 
 //Instantiating a Page Object
-const page = new Page(element);
+const page = new Page(messageBox);
 

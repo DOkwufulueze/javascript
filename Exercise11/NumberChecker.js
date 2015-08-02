@@ -7,6 +7,7 @@ class NumberChecker {
   constructor(elements) {
     this._number = elements.number;
     this._result = elements.result;
+    this._form = document.getElementById('form');
     this._emptyMessage = ':::Enter a number';
     this._errorMessage = ':::Please enter a valid NUMBER';
     this._pattern = /^[0-9]+((\.[0-9]+)|[0-9]*)?$/;
@@ -16,16 +17,20 @@ class NumberChecker {
   //defining NumberChecker method _init()
   _init() {
     const number = this._number.value.trim();
+    this._checkNumber(number);
+  }
+
+  _checkNumber(number) {
     if (number === "") {
       this._number.focus();
       this._result.value = '';
       alert (this._emptyMessage) ;
     } else if (!this._pattern.test(number)) {
       this._number.focus();
-      this._result.value = '';
-      alert (this._errorMessage) ;
+      this._result.value = 'false';
     } else {
       this._result.value = 'true';
+      this._form.submit();
     }
   }
 }

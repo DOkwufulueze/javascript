@@ -28,8 +28,10 @@ class Table {
 
   //defining Row methods
   _init() {
-    const table = this._table;
-    
+    this._showInitialTable(this._table);
+  }
+
+  _showInitialTable(table) {
     //_createElement takes the element type and the id of row
     const row = this._createElement('TR');
     const column1 = this._createElement('TH');
@@ -46,14 +48,13 @@ class Table {
     });
     
     //appending columns to rows
-    row.appendChild(column1);
-    row.appendChild(column2);
-    row.appendChild(column3);
+    this._appendElement(row, {column1, column2, column3});
 
     //appending row to table
-    table.appendChild(row);
-    document.body.appendChild(table);
-    document.body.appendChild(button);
+    this._appendElement(table, {row});    
+
+    //appending table and button to body
+    this._appendElement(document.body, {table, button});
   }
 
   _createElement(tag) {
@@ -80,24 +81,18 @@ class Table {
     //Creating row group (the group of all the elements in a row)
     const rowGroup = this._createRowGroup(row, textField, mailField, span1, span2, save, edit, deleteLink);
     
-    //formatting save button and creating target-event object for it
+    //formatting elements and creating target-event object for them using _formatElement and createTargetObject Methods
     this._formatElement(save,'save','NA','button','Save');
     const saveTargetObject = this._createTargetObject(save, () => {this._saveRow(rowGroup)});
-
-    //formatting edit link and creating target-event object for it
     this._formatElement(edit,'edit','Edit','NA','NA');
     const editTargetObject = this._createTargetObject(edit, () => {this._editRow(rowGroup)});
-
-    //formatting deleteLink link and creating target-event object for it
     this._formatElement(deleteLink,'delete','Delete','NA','NA');
     const deleteTargetObject = this._createTargetObject(deleteLink, () => {this._deleteRow(row)});
 
-    //Adding eventListener for the row
-    this._addEventListener(row, saveTargetObject);
-    this._addEventListener(row, editTargetObject);
-    this._addEventListener(row, deleteTargetObject);
+    //Adding eventListener for the row using _addEventListener Method
+    this._addEventListener(row, {saveTargetObject, editTargetObject, deleteTargetObject});
 
-    //Appending elements to parents
+    //Appending elements to parents using _appendElement Method
     this._appendElement(column1, {textField, span1});
     this._appendElement(column2, {mailField, span2});
     this._appendElement(column3, {save, edit, deleteLink});
@@ -113,12 +108,14 @@ class Table {
   }
 
   //Adding event listener to element
-  _addEventListener(element, targetObject) {
+  _addEventListener(element, targetObjects) {
     element.addEventListener('click', (theEvent) => {
       const target = theEvent.target;
-      if (target === targetObject.targetElement) {
-        targetObject.trigger();
-      }
+      Object.keys(targetObjects).forEach((targetObject) => {
+        if (target === targetObjects[targetObject].targetElement) {
+          targetObjects[targetObject].trigger();
+        }
+      });
     });
   }
 

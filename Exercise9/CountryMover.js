@@ -12,6 +12,10 @@ class CountryMover {
   _init() {
     const fromBox = this._fromBox;
     const toBox = this._toBox;
+    this._moveSelectedData(fromBox, toBox);
+  }
+
+  _moveSelectedData(fromBox, toBox) {
     let selectedData = 0;
     let selectedValue;
     let selectedText;
