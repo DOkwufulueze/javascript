@@ -82,6 +82,21 @@ class Table {
     const rowGroup = this._createRowGroup(row, textField, mailField, span1, span2, save, edit, deleteLink);
     
     //formatting elements and creating target-event object for them using _formatElement and createTargetObject Methods
+    this._formatAndSetTarget(save, edit, deleteLink, row, rowGroup);
+
+    //Appending elements to parents using _appendElement Method
+    this._appendAllElements(row, column1, column2, column3, save, edit, deleteLink, mailField, span2, textField, span1);
+  }
+
+  _appendAllElements(row, column1, column2, column3, save, edit, deleteLink, mailField, span2, textField, span1) {
+    this._appendElement(column1, {textField, span1});
+    this._appendElement(column2, {mailField, span2});
+    this._appendElement(column3, {save, edit, deleteLink});
+    this._appendElement(row, {column1, column2, column3});
+    this._appendElement(this._table, {row});    
+  }
+
+  _formatAndSetTarget(save, edit, deleteLink, row, rowGroup) {
     this._formatElement(save,'save','NA','button','Save');
     const saveTargetObject = this._createTargetObject(save, () => {this._saveRow(rowGroup)});
     this._formatElement(edit,'edit','Edit','NA','NA');
@@ -91,13 +106,6 @@ class Table {
 
     //Adding eventListener for the row using _addEventListener Method
     this._addEventListener(row, {saveTargetObject, editTargetObject, deleteTargetObject});
-
-    //Appending elements to parents using _appendElement Method
-    this._appendElement(column1, {textField, span1});
-    this._appendElement(column2, {mailField, span2});
-    this._appendElement(column3, {save, edit, deleteLink});
-    this._appendElement(row, {column1, column2, column3});
-    this._appendElement(this._table, {row});    
   }
 
   _createTargetObject(element, method) {
@@ -161,8 +169,7 @@ class Table {
   }
 
   _saveRow(rowGroup) {
-    let flag = 0;
-
+    
     //Validating entries and showing containing span
     const entries = {
       name : {
@@ -180,6 +187,27 @@ class Table {
       },
     };
 
+    if (this._validateEntries(entries)) {
+      this._performSaveAction(rowGroup);
+    }
+  }
+
+  _performSaveAction(rowGroup) {
+    if (confirm(':::Are you sure you want to Save record?') == true) {
+
+      //Reveal Edit and Delete Links and Hiding Save Button
+      rowGroup.save.style.display = 'none';
+      rowGroup.textField.style.display = 'none';
+      rowGroup.mailField.style.display = 'none';
+      rowGroup.span1.style.display = 'inline-block';
+      rowGroup.span2.style.display = 'inline-block';
+      rowGroup.edit.style.display = 'inline-block';
+      rowGroup.deleteLink.style.display = 'inline-block';
+    }
+  }
+
+  _validateEntries(entries) {
+    let flag = 0;
     Object.keys(entries).some((entry) => {
       if (!this._isValidInput(entries[entry].sourceValue, entries[entry].title)) {
         entries[entry].source.focus();
@@ -195,21 +223,7 @@ class Table {
         entries[entry].renderingObject.innerHTML = entries[entry].sourceValue;
       }
     });
-    
-    if (flag === 0) {
-      //Saving inputs
-      if (confirm(':::Are you sure you want to Save record?') == true) {
-
-        //Reveal Edit and Delete Links and Hiding Save Button
-        rowGroup.save.style.display = 'none';
-        rowGroup.textField.style.display = 'none';
-        rowGroup.mailField.style.display = 'none';
-        rowGroup.span1.style.display = 'inline-block';
-        rowGroup.span2.style.display = 'inline-block';
-        rowGroup.edit.style.display = 'inline-block';
-        rowGroup.deleteLink.style.display = 'inline-block';
-      }
-    }
+    return flag === 0 ? true : false;
   }
 
   _editRow(rowGroup) {
