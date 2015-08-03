@@ -169,14 +169,14 @@ class Table {
         title : 'name',
         source : rowGroup.textField,
         sourceValue : rowGroup.textField.value.trim(),
-        renderer : rowGroup.span1,
+        renderingObject : rowGroup.span1,
       },
 
       email : {
         title : 'email',
         source : rowGroup.mailField,
         sourceValue : rowGroup.mailField.value.trim(),
-        renderer : rowGroup.span2,
+        renderingObject : rowGroup.span2,
       },
     };
 
@@ -192,7 +192,7 @@ class Table {
         flag = 1;
         return true;
       } else{
-        entries[entry].renderer.innerHTML = entries[entry].sourceValue;
+        entries[entry].renderingObject.innerHTML = entries[entry].sourceValue;
       }
     });
     
