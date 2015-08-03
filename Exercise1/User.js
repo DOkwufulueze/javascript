@@ -60,6 +60,13 @@ class User {
       },
     };
 
+    //Comparison
+    if (!this._checkValidity(user)) {
+      this._outputComparison(user1Name, user1Age, user2Name, user2Age);
+    }
+  }
+
+  _checkValidity(user) {
     let flag = 0;
     Object.keys(user).some((firstLevelKey) => {
       let firstLevelObject = user[firstLevelKey];
@@ -73,8 +80,9 @@ class User {
         return true;
       }
     });
-    
-    //Correct input supplied by user
+  }
+
+  _outputComparison(user1Name, user1Age, user2Name, user2Age) {
     if (parseInt(user1Age, 10) > parseInt(user2Age, 10)) {
       alert(`${user1Name} is older than ${user2Name}`);
     } else if (parseInt(user1Age, 10) < parseInt(user2Age, 10)) {
