@@ -62,38 +62,36 @@ class Table {
   }
 
   _addNewRow() {
-    
+    const rowGroup = {};
+
     //creating elements using createElement(tag)
-    const row = this._createElement('TR');
-    const column1 = this._createElement('TD');
-    const column2 = this._createElement('TD');
-    const column3 = this._createElement('TD');
-    const textField = this._createElement('INPUT');
-    textField.type = 'text';
-    const mailField = this._createElement('INPUT');
-    mailField.type = 'text';
-    const span1 = this._createElement('SPAN');
-    const span2 = this._createElement('SPAN');
-    const save = this._createElement('INPUT');
-    const deleteLink = this._createElement('A');
-    const edit = this._createElement('A');
-    
-    //Creating row group (the group of all the elements in a row)
-    const rowGroup = this._createRowGroup(row, textField, mailField, span1, span2, save, edit, deleteLink);
+    rowGroup.row = this._createElement('TR');
+    rowGroup.column1 = this._createElement('TD');
+    rowGroup.column2 = this._createElement('TD');
+    rowGroup.column3 = this._createElement('TD');
+    rowGroup.textField = this._createElement('INPUT');
+    rowGroup.textField.type = 'text';
+    rowGroup.mailField = this._createElement('INPUT');
+    rowGroup.mailField.type = 'text';
+    rowGroup.span1 = this._createElement('SPAN');
+    rowGroup.span2 = this._createElement('SPAN');
+    rowGroup.save = this._createElement('INPUT');
+    rowGroup.deleteLink = this._createElement('A');
+    rowGroup.edit = this._createElement('A');
     
     //formatting elements and creating target-event object for them using _formatElement and createTargetObject Methods
-    this._formatAndSetTarget(save, edit, deleteLink, row, rowGroup);
+    this._formatAndSetTarget(rowGroup.save, rowGroup.edit, rowGroup.deleteLink, rowGroup.row, rowGroup);
 
     //Appending elements to parents using _appendElement Method
-    this._appendAllElements(row, column1, column2, column3, save, edit, deleteLink, mailField, span2, textField, span1);
+    this._appendAllElements(rowGroup);
   }
 
-  _appendAllElements(row, column1, column2, column3, save, edit, deleteLink, mailField, span2, textField, span1) {
-    this._appendElement(column1, {textField, span1});
-    this._appendElement(column2, {mailField, span2});
-    this._appendElement(column3, {save, edit, deleteLink});
-    this._appendElement(row, {column1, column2, column3});
-    this._appendElement(this._table, {row});    
+  _appendAllElements(rowGroup) {
+    this._appendElement(rowGroup.column1, {textField : rowGroup.textField, span1 : rowGroup.span1});
+    this._appendElement(rowGroup.column2, {mailField : rowGroup.mailField, span2 : rowGroup.span2});
+    this._appendElement(rowGroup.column3, {save : rowGroup.save, edit : rowGroup.edit, deleteLink : rowGroup.deleteLink});
+    this._appendElement(rowGroup.row, {column1 : rowGroup.column1, column2 : rowGroup.column2, column3 : rowGroup.column3});
+    this._appendElement(this._table, {row : rowGroup.row});    
   }
 
   _formatAndSetTarget(save, edit, deleteLink, row, rowGroup) {
@@ -134,20 +132,6 @@ class Table {
     });
   }
 
-  //Creating a row group
-  _createRowGroup(row, textField, mailField, span1, span2, save, edit, deleteLink) {
-    return {
-      row,
-      textField,
-      mailField,
-      span1,
-      span2,
-      save,
-      edit,
-      deleteLink,
-    };
-  }    
-
   //_formatElement formats an element with its parameters' values
   _formatElement(element, elementClass, innerHTML, type, value) {
     element.class = (elementClass !== 'NA') ? elementClass : '';
@@ -174,16 +158,16 @@ class Table {
     const entries = {
       name : {
         title : 'name',
-        source : rowGroup.textField,
+        textInputElement : rowGroup.textField,
         sourceValue : rowGroup.textField.value.trim(),
-        renderingObject : rowGroup.span1,
+        ObjectThatDisplaysTheInput : rowGroup.span1,
       },
 
       email : {
         title : 'email',
-        source : rowGroup.mailField,
+        textInputElement : rowGroup.mailField,
         sourceValue : rowGroup.mailField.value.trim(),
-        renderingObject : rowGroup.span2,
+        ObjectThatDisplaysTheInput : rowGroup.span2,
       },
     };
 
@@ -210,17 +194,17 @@ class Table {
     let flag = 0;
     Object.keys(entries).some((entry) => {
       if (!this._isValidInput(entries[entry].sourceValue, entries[entry].title)) {
-        entries[entry].source.focus();
+        entries[entry].textInputElement.focus();
         alert(this._message[entries[entry].title].invalid);
         flag = 1;
         return true;
       } else if (this._isValidInput(entries[entry].sourceValue, entries[entry].title) === 'Empty') {
-        entries[entry].source.focus();
+        entries[entry].textInputElement.focus();
         alert(this._message[entries[entry].title].empty);
         flag = 1;
         return true;
       } else{
-        entries[entry].renderingObject.innerHTML = entries[entry].sourceValue;
+        entries[entry].ObjectThatDisplaysTheInput.innerHTML = entries[entry].sourceValue;
       }
     });
     return flag === 0 ? true : false;

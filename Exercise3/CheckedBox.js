@@ -12,7 +12,10 @@ class CheckedBox {
   }
 
   _init() {
-    const form = this._form;
+    this._addEventListenerTo(this._form);
+  }
+
+  _addEventListenerTo(form) {
     form.addEventListener('click', (theEvent) => {
       const child = theEvent.target;
       if (child.id) {
@@ -28,17 +31,45 @@ class CheckedBox {
 
   //defining CheckedBox methods
   _confirmMaximum(box) {
-    if (box.id === 'None') {
+    if (this._isBoxNone(box)) {
       this._uncheckDays();
     } else {
-      this._none.checked = false;
-      const all = this._checkedBoxes;
-      if (all.length >= 3) {
-        alert(`:::You already selected ${all[0].value}, ${all[1].value}, ${all[2].value}. Only 3 days can be selected.`);
-        box.checked = false;
-      } else {
-        this._addChecked(box);
-      }
+      this._uncheckNone();
+      this._attemptAddingCheckbox(box, this._checkedBoxes);
+    }
+  }
+
+  _uncheckNone() {
+    this._none.checked = false;
+  }
+  
+  _attemptAddingCheckbox(box, checkedBoxesArray) {
+    if(this._isNotMaximumSize(checkedBoxesArray)){
+      this._addChecked(box);
+    } else {
+      this._unCheckBox(box);
+    }
+  }
+
+  _isNotMaximumSize(checkedBoxesArray) {
+    if (checkedBoxesArray.length >= 3) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  _unCheckBox(box) {
+    const selectedDays = this._checkedBoxes.map((entity) => { return entity.value; }).join(', ');
+    alert(`:::You already selected ${selectedDays}. Only 3 days can be selected.`);
+    box.checked = false;
+  }
+
+  _isBoxNone(box) {
+    if (box.id === 'None') {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -47,10 +78,10 @@ class CheckedBox {
   }
 
   _uncheckDays() {
-    const all = this._checkedBoxes;
-    Object.keys(all).forEach((i) => {
-      if (all[i].id !== 'None') {
-        all[i].checked = false;
+    const checkedBoxesArray = this._checkedBoxes;
+    Object.keys(checkedBoxesArray).forEach((i) => {
+      if (checkedBoxesArray[i].id !== 'None') {
+        checkedBoxesArray[i].checked = false;
       }
     });    
     this._checkedBoxes=[];
