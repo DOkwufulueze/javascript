@@ -17,12 +17,16 @@ class CheckedBox {
 
   _addEventListenerTo(form) {
     form.addEventListener('click', (theEvent) => {
-      const child = theEvent.target;
+      let child = theEvent.target;
       if (child.id) {
-        if(child.checked){
-          this._confirmMaximum(child);
+          if (child === this._none) {
+          this._uncheckDays();
         } else {
-          this._removeBox(child);
+          if(child.checked){
+            this._confirmMaximum(child);
+          } else {
+            this._removeBox(child);
+          }
         }
       }
     });
@@ -31,12 +35,8 @@ class CheckedBox {
 
   //defining CheckedBox methods
   _confirmMaximum(box) {
-    if (this._isBoxNone(box)) {
-      this._uncheckDays();
-    } else {
-      this._uncheckNone();
-      this._attemptAddingCheckbox(box, this._checkedBoxes);
-    }
+    this._uncheckNone();
+    this._attemptAddingCheckbox(box, this._checkedBoxes);
   }
 
   _uncheckNone() {
@@ -65,14 +65,6 @@ class CheckedBox {
     box.checked = false;
   }
 
-  _isBoxNone(box) {
-    if (box.id === 'None') {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   _addChecked(box) {
     this._checkedBoxes.push(box);
   }
@@ -80,9 +72,7 @@ class CheckedBox {
   _uncheckDays() {
     const checkedBoxesArray = this._checkedBoxes;
     Object.keys(checkedBoxesArray).forEach((i) => {
-      if (checkedBoxesArray[i].id !== 'None') {
-        checkedBoxesArray[i].checked = false;
-      }
+      checkedBoxesArray[i].checked = false;
     });    
     this._checkedBoxes=[];
   }
@@ -93,7 +83,7 @@ class CheckedBox {
   }
 }
 
-const form = document.getElementById('form');
+const form = document.form;
 
 //instantiating a CheckedBox object
 new CheckedBox(form);
