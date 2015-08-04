@@ -15,7 +15,7 @@ class Table {
         invalid: ':::Please enter a valid email',
       },
 
-      name : {
+      name: {
         empty: ':::Please enter a name',
         invalid: ':::Please enter a valid name',
       },
