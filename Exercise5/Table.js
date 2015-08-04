@@ -5,19 +5,19 @@ class Table {
   //Row constructor
   constructor() {
     this._pattern = {
-      email : /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
-      name : /^(\s)*[a-zA-Z]+(\s)*((\s)*(['-])*(\s)*[a-zA-Z]+(\s)*)*$/,
+      email: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
+      name: /^(\s)*[a-zA-Z]+(\s)*((\s)*(['-])*(\s)*[a-zA-Z]+(\s)*)*$/,
     };
 
     this._message = {
-      email : {
-        empty : ':::Please enter an email',
-        invalid : ':::Please enter a valid email',
+      email: {
+        empty: ':::Please enter an email',
+        invalid: ':::Please enter a valid email',
       },
 
       name : {
-        empty : ':::Please enter a name',
-        invalid : ':::Please enter a valid name',
+        empty: ':::Please enter a name',
+        invalid: ':::Please enter a valid name',
       },
     };
 
@@ -87,11 +87,11 @@ class Table {
   }
 
   _appendAllElements(rowGroup) {
-    this._appendElement(rowGroup.column1, {textField : rowGroup.textField, span1 : rowGroup.span1});
-    this._appendElement(rowGroup.column2, {mailField : rowGroup.mailField, span2 : rowGroup.span2});
-    this._appendElement(rowGroup.column3, {save : rowGroup.save, edit : rowGroup.edit, deleteLink : rowGroup.deleteLink});
-    this._appendElement(rowGroup.row, {column1 : rowGroup.column1, column2 : rowGroup.column2, column3 : rowGroup.column3});
-    this._appendElement(this._table, {row : rowGroup.row});    
+    this._appendElement(rowGroup.column1, {textField: rowGroup.textField, span1: rowGroup.span1});
+    this._appendElement(rowGroup.column2, {mailField: rowGroup.mailField, span2: rowGroup.span2});
+    this._appendElement(rowGroup.column3, {save: rowGroup.save, edit: rowGroup.edit, deleteLink: rowGroup.deleteLink});
+    this._appendElement(rowGroup.row, {column1: rowGroup.column1, column2: rowGroup.column2, column3: rowGroup.column3});
+    this._appendElement(this._table, {row: rowGroup.row});    
   }
 
   _formatAndSetTarget(save, edit, deleteLink, row, rowGroup) {
@@ -108,8 +108,8 @@ class Table {
 
   _createTargetObject(element, method) {
     return {
-      targetElement : element,
-      trigger : method,
+      targetElement: element,
+      trigger: method,
     }
   }
 
@@ -156,18 +156,18 @@ class Table {
     
     //Validating entries and showing containing span
     const entries = {
-      name : {
-        title : 'name',
-        textInputElement : rowGroup.textField,
-        sourceValue : rowGroup.textField.value.trim(),
-        ObjectThatDisplaysTheInput : rowGroup.span1,
+      name: {
+        title: 'name',
+        textInputElement: rowGroup.textField,
+        sourceValue: rowGroup.textField.value.trim(),
+        ObjectThatDisplaysTheInput: rowGroup.span1,
       },
 
-      email : {
-        title : 'email',
-        textInputElement : rowGroup.mailField,
-        sourceValue : rowGroup.mailField.value.trim(),
-        ObjectThatDisplaysTheInput : rowGroup.span2,
+      email: {
+        title: 'email',
+        textInputElement: rowGroup.mailField,
+        sourceValue: rowGroup.mailField.value.trim(),
+        ObjectThatDisplaysTheInput: rowGroup.span2,
       },
     };
 
