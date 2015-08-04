@@ -9,8 +9,7 @@ class ChildListManager {
   }
 
   _init() {
-    referenceDiv = this._referenceDiv;
-    this._attachEventListener(referenceDiv);
+    this._attachEventListener(this._referenceDiv);
   }
 
   //Attaching event listener
