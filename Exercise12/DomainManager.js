@@ -8,7 +8,7 @@ class DomainManager {
     this._url = element;
     this._emptyMessage = ':::Enter a URL';
     this._errorMessage = ':::No proper URL match found. Please enter a valid URL.';
-    this._pattern = /^((((ht|f)tp(s)?:\/\/)?(www\.)?((?!www.)[\w-]{2,66}(\.)?)+\.(?!www.)[a-z]{2,4}((\/\?)|(\/))?(#?[\w]?=?[\w]?&?%?-?_?\/?\??)*)|(file:\/\/\/([\w-]{2,66}(\.)?)+\/?))([\w]+([-_]*[\w\.]+)*\/?)*$/gi;
+    this._pattern = /^(((ht|f)tp(s)?:\/\/)?(www\.)?((?!www.)[\w-]{2,66}(\.)?)+\.(?!www.)[a-z]{2,4}((\/\?)|(\/))?(#?[\w]?([\w]\.[\w])?=?[\w]?&?%?-?_?\/?\??)*)$/gi;
     this._init();
   }
 
@@ -18,26 +18,26 @@ class DomainManager {
   }
 
   _matchURL(url) {
+    const pattern = this._pattern;
     if (url === '') {
-        this._url.focus();
-        alert (this._emptyMessage) ;
-      } else if (!url.match(this._pattern)) {
-        this._url.focus();
-        alert (this._errorMessage) ;
-      } else {
-        const rootDomainLeft = url.substring(0, url.lastIndexOf('.'));
-        const rootDomain = `${rootDomainLeft.substring(rootDomainLeft.lastIndexOf('.') + 1)}${url.substring(url.lastIndexOf('.'))}`;
-        alert(`Root Domain: ${rootDomain}`);
-        while (url.indexOf('.')) {
-          if (url.match(/\./g).length === 1) {
-            break;
-          } else {
-            alert(`Sub-Domain: ${url}`);
-          }
+      this._url.focus();
+      alert (this._emptyMessage) ;
+    } else if (!pattern.test(url)) {
+      this._url.focus();
+      alert (this._errorMessage) ;
+    } else {
+      this._doMatching(url);
+    }
+  }
 
-          url = url.substring(url.indexOf('.') + 1);
-        }
-      }
+  _doMatching(url) {
+    const lastTextAfterPeriod = url.substring(url.lastIndexOf('.')+1);
+    const pattern = /^(((ht|f)tp(s)?:\/\/)?(www\.)?((?!www.)[\w-]{2,66}(\.)?)+\.(?!www.)[a-z]{2,4}((\/\?)|(\/))?(#?[\w]?([\w]\.[\w])?=?[\w]?&?%?-?_?\/?\??)*)$/gi;
+    const urlArray = pattern.exec(url);
+    let domain = urlArray[6];
+    domain = `${domain}.${lastTextAfterPeriod}`;
+    const subDomain = urlArray[0];
+    alert(`Domain: ${domain}, Sub-Domain: ${subDomain}`);
   }
 }
 

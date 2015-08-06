@@ -10,17 +10,28 @@ class URLOpener {
   }
 
   _init() {
-    let url = this._promptMessage(':::Please enter URL.');
-    while (!this._isInputCorrect(url) && url !== null) {
-      url = this._promptMessage(':::Please enter a valid URL.');
-    }
+    this._beginURLManipulation();
+  }
 
+  _beginURLManipulation() {
+    let url = this._promptMessage(':::Please enter URL.');
+    url = this._ensureCorrectURL(url);
+    this._checkForNullity(url);
+  }
+
+  _checkForNullity(url) {
     if (url !== null) {
-      url = url.trim();
       this._openURL(url);
     } else {
       alert('You Cancelled. Thanks for Coming.');
     }
+  }
+
+  _ensureCorrectURL(url) {
+    while (!this._isInputCorrect(url) && url !== null) {
+      url = this._promptMessage(':::Please enter a valid URL.');
+    }
+    return url !== null ? url.trim() : null;
   }
 
   //Prompt the user with messages
@@ -30,7 +41,7 @@ class URLOpener {
 
   //Validate user's url
   _isInputCorrect(data) {
-    return /^((((ht|f)tp(s)?:\/\/)?([\w-]{2,66}(\.)?)+\.[a-z]{2,4}\/?)|(file:\/\/\/([\w-]{2,66}(\.)?)+\/?))([\w]+([-_]*[\w\.]+)*\/?)*$/gi.test(data);
+    return /^((((ht|f)tp(s)?:\/\/)?(www\.)?((?!www.)[\w-]{2,66}(\.)?)+\.(?!www.)[a-z]{2,4}((\/\?)|(\/))?(#?[\w]?([\w]\.[\w])?=?[\w]?&?%?-?_?\/?\??)*)|(file:\/\/\/([\w-]{2,66}(\.)?)+\/?))([\w]+([-_]*[\w\.]+)*\/?)*$/gi.test(data);
   }
 
   //Receive URL and Open it

@@ -23,46 +23,80 @@ class Validator {
   _init() {
     const elements = this._elements;
     const pattern = this._pattern;
-    this._validate(elements, pattern);
+    this._beginValidation(elements, pattern);
   }
 
-  _validate(elements, pattern) {
-    let id;
+  _beginValidation(elements, pattern) {
+    let flag = 0;
+    if (this._isInvalid(elements, pattern) === true) {
+      return false;
+    } else {
+      this._continue();
+    }
+  }
+
+  _continue() {
+    if (this._checkNotificationCheckbox()) {
+      if (this._positiveResponseOnNotify()) {
+        this._form.submit();
+      }
+    } else {
+      if (this._negativeResponseOnNotify()) {
+        this._form.submit();
+      }
+    }
+  }
+
+  _positiveResponseOnNotify() {
+    if (confirm(':::Are you sure you want to receive notifications?')) {
+      return true;
+    }
+  }
+
+  _negativeResponseOnNotify() {
+    if (confirm(':::Are you sure you DO NOT want to receive notifications?')) {
+      return true;
+    }
+  }
+
+  _checkNotificationCheckbox() {
+    if (this._note.checked) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  _isInvalid(elements, pattern) {
     let flag = 0;
     Object.keys(elements).some((element) => {
       if (!isNaN(element)) {
-        let id = elements[element].id;
-        let value = elements[element].value.trim();
-        if (value === '') {
-          elements[element].focus();
-          alert(this._emptyMessage(id));
+        if (this._patternAndValueTest(elements, element, pattern) === true) {
           flag = 1;
           return true;
-        } else {
-          if (pattern[id]) {
-            if (!pattern[id].test(value)) {
-              elements[element].focus();
-              alert(this._errorMessage(id));
-              flag = 1;
-              return true;
-            }
-          }
         }
       }
     });
+    if (flag == 1) {
+      return true;
+    }
+  }
 
-    if (flag === 0) {
-      if (this._note.checked) {
-        if (confirm(':::Are you sure you want to receive notifications?')) {
-          this._form.submit();
-        }
-      } else {
-        if (confirm(':::Are you sure you DO NOT want to receive notifications?')) {
-          this._form.submit();
+  _patternAndValueTest(elements, element, pattern) {
+    const id = elements[element].id;
+    const value = elements[element].value.trim();
+    if (value === '') {
+      elements[element].focus();
+      alert(this._emptyMessage(id));
+      return true;
+    } else {
+      if (pattern[id]) {
+        if (!pattern[id].test(value)) {
+          elements[element].focus();
+          alert(this._errorMessage(id));
+          return true;
         }
       }
-    } else {
-      return false;
     }
   }
 
