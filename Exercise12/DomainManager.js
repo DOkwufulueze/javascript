@@ -31,11 +31,9 @@ class DomainManager {
   }
 
   _doMatching(url) {
-    const lastTextAfterPeriod = url.substring(url.lastIndexOf('.')+1);
-    const pattern = /^(((ht|f)tp(s)?:\/\/)?(www\.)?((?!www.)[\w-]{2,66}(\.)?)+\.(?!www.)[a-z]{2,4}((\/\?)|(\/))?(#?[\w]?([\w]\.[\w])?=?[\w]?&?%?-?_?\/?\??)*)$/gi;
+    const pattern = /^((ht|f)tp(s)?:\/\/)?(www\.)?(((?!www.)[\w-]{2,66}(\.)?)*((?!www.)([\w-]{5,66})?\.(?!www.)[a-z]{2,4})((\/\?)|(\/))?(#?[\w]?([\w]\.[\w])?=?[\w]?&?%?-?_?\/?\??)*)$/gi;
     const urlArray = pattern.exec(url);
-    let domain = urlArray[6];
-    domain = `${domain}.${lastTextAfterPeriod}`;
+    let domain = `${urlArray[6]}${urlArray[8]}`;
     const subDomain = urlArray[0];
     alert(`Domain: ${domain}, Sub-Domain: ${subDomain}`);
   }
