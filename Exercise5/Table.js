@@ -141,12 +141,8 @@ class Table {
   }
 
   _isValidInput(sourceValue, title) {
-    if (sourceValue !== '') {
-      if (this._pattern[title].test(sourceValue)) {
-        return true;
-      } else {
-        return false;
-      }
+    if (sourceValue) {
+      return this._pattern[title].test(sourceValue) ? true : false;
     } else {
       return 'Empty';
     }
